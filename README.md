@@ -1,77 +1,82 @@
-# 💼 Business Case Analyzer Pro
+# 💼 Analizador de Casos de Negocio Pro / Business Case Analyzer Pro
 
-A comprehensive, professional-grade financial analysis tool for evaluating business cases with advanced ROI calculations, NPV analysis, and intelligent recommendations.
+Una herramienta integral de análisis financiero de nivel profesional para evaluar casos de negocio con cálculos avanzados de ROI, análisis VPN y recomendaciones inteligentes.
 
-## ✨ Features
+**🇪🇸 100% EN ESPAÑOL** - Interfaz completamente traducida al español con terminología financiera profesional.
 
-### 🎨 Modern Professional Design
-- **Glassmorphism UI**: Beautiful gradient backgrounds with frosted glass effects
-- **Smooth Animations**: Engaging transitions and hover effects
-- **Responsive Design**: Fully optimized for desktop, tablet, and mobile devices
-- **Professional Color Scheme**: Carefully selected color palette for maximum readability
+## ✨ Características
 
-### 📊 Financial Dashboard
-Real-time financial metrics displayed in interactive cards:
-- **ROI (Return on Investment)**: Percentage return on investment
-- **NPV (Net Present Value)**: Discounted cash flow analysis
-- **Payback Period**: Time to recover initial investment
-- **IRR (Internal Rate of Return)**: Annualized return rate
+### 🎨 Diseño Moderno Inspirado en Active Theory
+- **Interfaz Vibrante y Radiante**: Colores neón brillantes (rosa #ff006e, púrpura #8338ec, cian #00d9ff, verde #39ff14)
+- **Glassmorphism Avanzado**: Efectos de vidrio esmerilado con blur de 20px y transparencias dinámicas
+- **Gradientes Radiantes**: Rosa-púrpura, azul-cian, verde-lima, naranja-rosa con animaciones
+- **Partículas Flotantes**: Animaciones de fondo con efectos visuales dinámicos
+- **Efectos Neón y Glow**: Sombras coloridas luminosas en cards, botones e inputs
+- **Animaciones Fluidas**: Transiciones suaves de 0.4s con micro-interacciones elegantes
+- **Diseño Responsive Premium**: Totalmente optimizado para escritorio, tablet y móvil
 
-### 📝 Comprehensive Data Entry
-Complete project input forms with validation:
-- Project name and basic information
-- Initial investment amount
-- Discount rate for NPV calculations
-- Project duration (in months)
-- Revenue projections with growth rates
-- Operating and maintenance costs
-- Scenario analysis multipliers (best/worst case)
+### 📊 Panel Financiero / Financial Dashboard
+Métricas financieras en tiempo real en tarjetas interactivas con efectos neón:
+- **ROI (Retorno de Inversión)**: Porcentaje de retorno sobre la inversión
+- **VPN (Valor Presente Neto)**: Análisis de flujo de caja descontado
+- **Período de Recuperación**: Tiempo para recuperar la inversión inicial
+- **TIR (Tasa Interna de Retorno)**: Tasa de retorno anualizada
 
-### 🧮 Advanced Financial Calculations
-- **ROI Calculation**: Precise return on investment metrics
-- **NPV Analysis**: Net present value with customizable discount rates
-- **Payback Period**: Accurate break-even analysis
-- **IRR Calculation**: Internal rate of return using Newton-Raphson method
-- **Cash Flow Projections**: Monthly cash flow forecasting with growth rates
-- **Scenario Analysis**: Best case, expected case, and worst case scenarios
+### 📝 Entrada de Datos Completa / Comprehensive Data Entry
+Formularios completos de entrada de proyecto con validación en español:
+- Nombre del proyecto e información básica
+- Monto de inversión inicial
+- Tasa de descuento para cálculos de VPN
+- Duración del proyecto (en meses)
+- Proyecciones de ingresos con tasas de crecimiento
+- Costos operativos y de mantenimiento
+- Multiplicadores de análisis de escenarios (mejor/peor caso)
 
-### 📈 Interactive Charts (Chart.js)
-Three visualization types with smooth animations:
-- **Cash Flow Over Time**: Line chart showing monthly and cumulative cash flows
-- **ROI Comparison**: Bar chart comparing ROI across scenarios
-- **Scenario Analysis**: Radar chart for multi-dimensional comparison
+### 🧮 Cálculos Financieros Avanzados / Advanced Financial Calculations
+- **Cálculo de ROI**: Métricas precisas de retorno de inversión
+- **Análisis de VPN**: Valor presente neto con tasas de descuento personalizables
+- **Período de Recuperación**: Análisis preciso de punto de equilibrio
+- **Cálculo de TIR**: Tasa interna de retorno usando el método de Newton-Raphson
+- **Proyecciones de Flujo de Caja**: Pronóstico mensual con tasas de crecimiento
+- **Análisis de Escenarios**: Mejor caso, caso esperado y peor caso
 
-### 🎯 Scenario Comparison
-Visual cards displaying metrics for:
-- **Expected Case**: Most likely outcome
-- **Best Case**: Optimistic projection (with customizable multiplier)
-- **Worst Case**: Conservative projection (with customizable multiplier)
+### 📈 Gráficos Interactivos Vibrantes / Interactive Charts (Chart.js)
+Tres tipos de visualización con colores neón y animaciones suaves:
+- **Flujo de Caja en el Tiempo**: Gráfico de líneas mostrando flujos mensuales y acumulados
+- **Comparación de ROI**: Gráfico de barras comparando ROI entre escenarios
+- **Análisis de Escenarios**: Gráfico radar para comparación multidimensional
 
-### 💡 Smart Recommendations Engine
-Intelligent analysis providing:
-- ROI viability assessment
-- NPV interpretation
-- Payback period evaluation
-- Risk analysis based on scenario variability
-- IRR vs. discount rate comparison
-- Actionable recommendations for decision-making
+### 🎯 Comparación de Escenarios / Scenario Comparison
+Tarjetas visuales con glassmorphism mostrando métricas para:
+- **Caso Esperado**: Resultado más probable
+- **Mejor Caso**: Proyección optimista (con multiplicador personalizable)
+- **Peor Caso**: Proyección conservadora (con multiplicador personalizable)
 
-### 📄 PDF Export Functionality
-Generate comprehensive reports including:
-- Project information summary
-- All financial metrics
-- Scenario analysis results
-- Complete recommendations
-- Professional formatting with page numbers
-- Automated file naming with timestamps
+### 💡 Motor de Recomendaciones Inteligentes / Smart Recommendations Engine
+Análisis inteligente en español proporcionando:
+- Evaluación de viabilidad del ROI
+- Interpretación del VPN
+- Evaluación del período de recuperación
+- Análisis de riesgo basado en variabilidad de escenarios
+- Comparación TIR vs. tasa de descuento
+- Recomendaciones accionables para la toma de decisiones
 
-### ✨ Enhanced User Experience
-- **Auto-calculation**: Real-time updates as data changes (debounced)
-- **Loading States**: Visual feedback during processing
-- **Success/Error Messages**: Clear user feedback
-- **Form Validation**: Client-side validation with helpful error messages
-- **Confirmation Dialogs**: Prevent accidental data loss
-- **Sample Data**: Pre-filled demo data for quick testing
+### 📄 Funcionalidad de Exportación PDF / PDF Export
+Genera reportes completos en español incluyendo:
+- Resumen de información del proyecto
+- Todas las métricas financieras
+- Resultados del análisis de escenarios
+- Recomendaciones completas
+- Formato profesional con números de página
+- Nomenclatura automática de archivos con fechas
+
+### ✨ Experiencia de Usuario Mejorada / Enhanced UX
+- **Auto-cálculo**: Actualizaciones en tiempo real con datos de ejemplo
+- **Estados de Carga**: Spinner animado con efectos neón durante procesamiento
+- **Mensajes de Éxito/Error**: Feedback claro en español
+- **Validación de Formularios**: Validación del lado del cliente con mensajes útiles
+- **Diálogos de Confirmación**: Prevención de pérdida accidental de datos
+- **Datos de Ejemplo**: Datos de demostración pre-cargados en español
 
 ## 🚀 Getting Started
 
@@ -94,97 +99,99 @@ The application uses CDN-hosted libraries:
 - Chart.js 3.7.1 (for interactive charts)
 - jsPDF 2.4.0 (for PDF export)
 
-## 📖 Usage Guide
+## 📖 Guía de Uso / Usage Guide
 
-### 1. Enter Project Information
-Fill in the form with your project details:
-- **Project Name**: Identify your business case
-- **Initial Investment**: Total upfront cost
-- **Discount Rate**: Your required rate of return (typically 8-15%)
-- **Project Duration**: Timeline in months
+### 1. Ingresar Información del Proyecto / Enter Project Information
+Complete el formulario con los detalles de su proyecto:
+- **Nombre del Proyecto**: Identifique su caso de negocio
+- **Inversión Inicial**: Costo total inicial
+- **Tasa de Descuento**: Su tasa de retorno requerida (típicamente 8-15%)
+- **Duración del Proyecto**: Plazo en meses
 
-### 2. Add Revenue Projections
-- **Annual Revenue Increase**: Expected yearly revenue gain
-- **Revenue Growth Rate**: Percentage increase per year (optional)
+### 2. Agregar Proyecciones de Ingresos / Add Revenue Projections
+- **Incremento de Ingresos Anuales**: Ganancia de ingresos anual esperada
+- **Tasa de Crecimiento de Ingresos**: Porcentaje de aumento anual (opcional)
 
-### 3. Specify Costs
-- **Operating Costs**: Annual operational expenses
-- **Maintenance Costs**: Annual maintenance expenses
+### 3. Especificar Costos / Specify Costs
+- **Costos Operativos**: Gastos operacionales anuales
+- **Costos de Mantenimiento**: Gastos de mantenimiento anuales
 
-### 4. Configure Scenario Analysis
-- **Best Case Multiplier**: Optimistic factor (default: 1.3 = 30% better)
-- **Worst Case Multiplier**: Conservative factor (default: 0.7 = 30% worse)
+### 4. Configurar Análisis de Escenarios / Configure Scenario Analysis
+- **Multiplicador Mejor Caso**: Factor optimista (predeterminado: 1.3 = 30% mejor)
+- **Multiplicador Peor Caso**: Factor conservador (predeterminado: 0.7 = 30% peor)
 
-### 5. Calculate & Analyze
-Click "Calculate Analysis" to see:
-- Real-time financial metrics
-- Interactive charts
-- Scenario comparisons
-- Smart recommendations
+### 5. Calcular y Analizar / Calculate & Analyze
+Haga clic en "Calcular Análisis" para ver:
+- Métricas financieras en tiempo real con efectos vibrantes
+- Gráficos interactivos con colores neón
+- Comparaciones de escenarios con glassmorphism
+- Recomendaciones inteligentes en español
 
-### 6. Export Results
-Click "Export Complete Report to PDF" to download a comprehensive analysis report.
+### 6. Exportar Resultados / Export Results
+Haga clic en "Exportar Reporte Completo a PDF" para descargar un reporte de análisis completo en español.
 
-## 🎯 Key Metrics Explained
+## 🎯 Métricas Clave Explicadas / Key Metrics Explained
 
-### ROI (Return on Investment)
+### ROI (Retorno de Inversión / Return on Investment)
 ```
-ROI = (Total Return - Initial Investment) / Initial Investment × 100%
+ROI = (Retorno Total - Inversión Inicial) / Inversión Inicial × 100%
 ```
-Positive ROI indicates profitable investment.
+Un ROI positivo indica una inversión rentable.
 
-### NPV (Net Present Value)
+### VPN (Valor Presente Neto / Net Present Value)
 ```
-NPV = Σ (Cash Flow_t / (1 + Discount Rate)^t)
+VPN = Σ (Flujo de Caja_t / (1 + Tasa de Descuento)^t)
 ```
-Positive NPV means the project creates value.
+Un VPN positivo significa que el proyecto crea valor.
 
-### Payback Period
-Time required to recover the initial investment through cash flows.
+### Período de Recuperación / Payback Period
+Tiempo requerido para recuperar la inversión inicial a través de los flujos de caja.
 
-### IRR (Internal Rate of Return)
-The discount rate that makes NPV = 0. Compare with your required rate of return.
+### TIR (Tasa Interna de Retorno / Internal Rate of Return)
+La tasa de descuento que hace que VPN = 0. Compare con su tasa de retorno requerida.
 
-## 🔧 Technical Stack
+## 🔧 Stack Técnico / Technical Stack
 
-- **HTML5**: Semantic markup
-- **CSS3**: Modern styling with gradients, flexbox, and grid
-- **Vanilla JavaScript**: No framework dependencies
-- **Chart.js**: Interactive data visualization
-- **jsPDF**: Client-side PDF generation
+- **HTML5**: Marcado semántico en español
+- **CSS3**: Estilos modernos con gradientes vibrantes, glassmorphism, flexbox y grid
+- **Vanilla JavaScript**: Sin dependencias de frameworks
+- **Chart.js**: Visualización de datos interactiva con colores neón
+- **jsPDF**: Generación de PDF del lado del cliente en español
 
-## 📱 Browser Compatibility
+## 📱 Compatibilidad de Navegadores / Browser Compatibility
 
-- ✅ Chrome/Edge (latest)
-- ✅ Firefox (latest)
-- ✅ Safari (latest)
-- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
+- ✅ Chrome/Edge (última versión)
+- ✅ Firefox (última versión)
+- ✅ Safari (última versión)
+- ✅ Navegadores móviles (iOS Safari, Chrome Mobile)
 
-## 🎨 Design Philosophy
+## 🎨 Filosofía de Diseño / Design Philosophy
 
-The application follows modern design principles:
-- **Glassmorphism**: Translucent cards with backdrop blur
-- **Gradient Backgrounds**: Eye-catching purple-to-blue gradients
-- **Card-based Layout**: Organized information hierarchy
-- **Smooth Transitions**: 0.3s cubic-bezier animations
-- **Responsive Grid**: Adapts to all screen sizes
+**Inspirado en Active Theory - Diseño Vibrante y Futurista:**
+- **🌈 Colores Radiantes**: Paleta de neón (rosa #ff006e, púrpura #8338ec, cian #00d9ff, verde #39ff14)
+- **✨ Glassmorphism Avanzado**: Cards translúcidas con blur de 20px y bordes luminosos
+- **🎭 Gradientes Animados**: Rosa-púrpura, azul-cian, verde-lima, naranja-rosa
+- **💫 Partículas Flotantes**: Animaciones de fondo dinámicas con efectos visuales
+- **🌟 Efectos Neón y Glow**: Sombras coloridas luminosas en todos los elementos interactivos
+- **🎨 Animaciones Fluidas**: Transiciones suaves de 0.4s con cubic-bezier
+- **📱 Grid Responsive**: Se adapta perfectamente a todos los tamaños de pantalla
 
-## 📊 Sample Calculation
+## 📊 Cálculo de Ejemplo / Sample Calculation
 
-**Example Project:**
-- Initial Investment: $150,000
-- Annual Revenue: $75,000
-- Operating Costs: $15,000/year
-- Maintenance: $5,000/year
-- Duration: 24 months
-- Discount Rate: 10%
+**Proyecto de Ejemplo:**
+- Inversión Inicial: $150,000
+- Ingresos Anuales: $75,000
+- Costos Operativos: $15,000/año
+- Mantenimiento: $5,000/año
+- Duración: 24 meses
+- Tasa de Descuento: 10%
 
-**Results:**
-- Net Monthly Revenue: ~$4,583
-- Total Revenue (2 years): $110,000
-- ROI: -26.67% (needs improvement)
-- NPV: $41,180 (value creating)
-- Payback: 24 months
+**Resultados:**
+- Ingreso Mensual Neto: ~$4,583
+- Ingreso Total (2 años): $110,000
+- ROI: -26.67% (necesita mejora)
+- VPN: $41,180 (genera valor)
+- Recuperación: 24 meses
 
 ## 🤝 Contributing
 
