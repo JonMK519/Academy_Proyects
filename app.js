@@ -89,6 +89,7 @@ const translations = {
         'status-discounted-cashflow': 'Discounted cash flow',
         'status-months-to-recover': 'months to recover investment',
         'status-annualized-return': 'Annualized return rate',
+        'status-enter-data': 'Enter data to calculate',
         
         // Units
         'unit-months': 'months',
@@ -169,6 +170,7 @@ const translations = {
         'status-discounted-cashflow': 'Flujo de caja descontado',
         'status-months-to-recover': 'meses para recuperar inversión',
         'status-annualized-return': 'Tasa de retorno anualizada',
+        'status-enter-data': 'Ingrese datos para calcular',
         
         // Units
         'unit-months': 'meses',
@@ -223,22 +225,36 @@ function switchLanguage(lang) {
         }
     });
     
-    // Update scenario card titles
-    document.querySelector('.scenario-card.expected .scenario-title').textContent = 
-        (lang === 'en' ? '📊 ' : '📊 ') + t['scenario-expected'];
-    document.querySelector('.scenario-card.best .scenario-title').textContent = 
-        (lang === 'en' ? '🚀 ' : '🚀 ') + t['scenario-best'];
-    document.querySelector('.scenario-card.worst .scenario-title').textContent = 
-        (lang === 'en' ? '⚠️ ' : '⚠️ ') + t['scenario-worst'];
+    // Update scenario card titles and labels
+    document.getElementById('title-expected').textContent = '📊 ' + t['scenario-expected'];
+    document.getElementById('title-best').textContent = '🚀 ' + t['scenario-best'];
+    document.getElementById('title-worst').textContent = '⚠️ ' + t['scenario-worst'];
+    
+    // Update scenario metric labels
+    document.getElementById('label-expected-roi').textContent = t['scenario-roi-label'];
+    document.getElementById('label-expected-npv').textContent = t['scenario-npv-label'];
+    document.getElementById('label-expected-payback').textContent = t['scenario-payback-label'];
+    document.getElementById('label-best-roi').textContent = t['scenario-roi-label'];
+    document.getElementById('label-best-npv').textContent = t['scenario-npv-label'];
+    document.getElementById('label-best-payback').textContent = t['scenario-payback-label'];
+    document.getElementById('label-worst-roi').textContent = t['scenario-roi-label'];
+    document.getElementById('label-worst-npv').textContent = t['scenario-npv-label'];
+    document.getElementById('label-worst-payback').textContent = t['scenario-payback-label'];
     
     // Update metric card labels
-    const metricLabels = document.querySelectorAll('.metric-label');
-    const metricKeys = ['metric-roi', 'metric-npv', 'metric-payback', 'metric-irr'];
-    metricLabels.forEach((label, index) => {
-        if (metricKeys[index] && t[metricKeys[index]]) {
-            label.textContent = t[metricKeys[index]];
-        }
-    });
+    document.getElementById('metric-label-roi').textContent = t['metric-roi'];
+    document.getElementById('metric-label-npv').textContent = t['metric-npv'];
+    document.getElementById('metric-label-payback').textContent = t['metric-payback'];
+    document.getElementById('metric-label-irr').textContent = t['metric-irr'];
+    
+    // Update metric status if they haven't been calculated yet
+    const roiStatus = document.getElementById('roi-status');
+    if (roiStatus.textContent.includes('Enter data') || roiStatus.textContent.includes('Ingrese datos')) {
+        roiStatus.textContent = t['status-enter-data'];
+        document.getElementById('npv-status').textContent = t['status-discounted-cashflow'];
+        document.getElementById('payback-status').textContent = t['status-months-to-recover'];
+        document.getElementById('irr-status').textContent = t['status-annualized-return'];
+    }
     
     // Update default recommendations text
     const recommendations = document.getElementById('recommendations');
@@ -363,9 +379,12 @@ const UIUpdater = {
         document.getElementById('payback-value').textContent = metrics.paybackPeriod.toFixed(1);
         document.getElementById('irr-value').textContent = metrics.irr.toFixed(2) + '%';
 
-        // Update status messages
-        document.getElementById('roi-status').textContent = metrics.roi > 0 ? t['status-positive-return'] : t['status-negative-return'];
-        document.getElementById('npv-status').textContent = metrics.npv > 0 ? t['status-creates-value'] : t['status-destroys-value'];
+        // Update status messages with proper translations
+        const roiStatus = document.getElementById('roi-status');
+        const npvStatus = document.getElementById('npv-status');
+        
+        roiStatus.textContent = metrics.roi > 0 ? t['status-positive-return'] : t['status-negative-return'];
+        npvStatus.textContent = metrics.npv > 0 ? t['status-creates-value'] : t['status-destroys-value'];
     },
 
     updateScenarioCards(expectedMetrics, bestMetrics, worstMetrics) {

@@ -29,24 +29,24 @@
             <h2 id="section-dashboard">Financial Dashboard</h2>
             <div class="dashboard" id="dashboard">
                 <div class="metric-card success">
-                    <div class="metric-label">ROI (Retorno de Inversión)</div>
+                    <div class="metric-label" id="metric-label-roi">ROI (Return on Investment)</div>
                     <div class="metric-value" id="roi-value">0%</div>
-                    <div class="metric-change" id="roi-status">Ingrese datos para calcular</div>
+                    <div class="metric-change" id="roi-status">Enter data to calculate</div>
                 </div>
                 <div class="metric-card info">
-                    <div class="metric-label">VPN (Valor Presente Neto)</div>
+                    <div class="metric-label" id="metric-label-npv">NPV (Net Present Value)</div>
                     <div class="metric-value" id="npv-value">$0</div>
-                    <div class="metric-change" id="npv-status">Flujo de caja descontado</div>
+                    <div class="metric-change" id="npv-status">Discounted cash flow</div>
                 </div>
                 <div class="metric-card warning">
-                    <div class="metric-label">Período de Recuperación</div>
+                    <div class="metric-label" id="metric-label-payback">Payback Period</div>
                     <div class="metric-value" id="payback-value">0</div>
-                    <div class="metric-change">meses para recuperar inversión</div>
+                    <div class="metric-change" id="payback-status">months to recover investment</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-label">TIR (Tasa Interna de Retorno)</div>
+                    <div class="metric-label" id="metric-label-irr">IRR (Internal Rate of Return)</div>
                     <div class="metric-value" id="irr-value">0%</div>
-                    <div class="metric-change">Tasa de retorno anualizada</div>
+                    <div class="metric-change" id="irr-status">Annualized return rate</div>
                 </div>
             </div>
         </section>
@@ -155,55 +155,55 @@
             <h2 id="section-scenarios">Scenario Comparison</h2>
             <div class="scenario-grid" id="scenarioGrid">
                 <div class="scenario-card expected">
-                    <div class="scenario-title">📊 Caso Esperado</div>
+                    <div class="scenario-title" id="title-expected">📊 Expected Case</div>
                     <div class="scenario-metrics">
                         <div class="scenario-metric">
-                            <span>ROI:</span>
+                            <span id="label-expected-roi">ROI:</span>
                             <strong id="expected-roi">0%</strong>
                         </div>
                         <div class="scenario-metric">
-                            <span>VPN:</span>
+                            <span id="label-expected-npv">NPV:</span>
                             <strong id="expected-npv">$0</strong>
                         </div>
                         <div class="scenario-metric">
-                            <span>Recuperación:</span>
-                            <strong id="expected-payback">0 meses</strong>
+                            <span id="label-expected-payback">Payback:</span>
+                            <strong id="expected-payback">0 months</strong>
                         </div>
                     </div>
                 </div>
 
                 <div class="scenario-card best">
-                    <div class="scenario-title">🚀 Mejor Caso</div>
+                    <div class="scenario-title" id="title-best">🚀 Best Case</div>
                     <div class="scenario-metrics">
                         <div class="scenario-metric">
-                            <span>ROI:</span>
+                            <span id="label-best-roi">ROI:</span>
                             <strong id="best-roi">0%</strong>
                         </div>
                         <div class="scenario-metric">
-                            <span>VPN:</span>
+                            <span id="label-best-npv">NPV:</span>
                             <strong id="best-npv">$0</strong>
                         </div>
                         <div class="scenario-metric">
-                            <span>Recuperación:</span>
-                            <strong id="best-payback">0 meses</strong>
+                            <span id="label-best-payback">Payback:</span>
+                            <strong id="best-payback">0 months</strong>
                         </div>
                     </div>
                 </div>
 
                 <div class="scenario-card worst">
-                    <div class="scenario-title">⚠️ Peor Caso</div>
+                    <div class="scenario-title" id="title-worst">⚠️ Worst Case</div>
                     <div class="scenario-metrics">
                         <div class="scenario-metric">
-                            <span>ROI:</span>
+                            <span id="label-worst-roi">ROI:</span>
                             <strong id="worst-roi">0%</strong>
                         </div>
                         <div class="scenario-metric">
-                            <span>VPN:</span>
+                            <span id="label-worst-npv">NPV:</span>
                             <strong id="worst-npv">$0</strong>
                         </div>
                         <div class="scenario-metric">
-                            <span>Recuperación:</span>
-                            <strong id="worst-payback">0 meses</strong>
+                            <span id="label-worst-payback">Payback:</span>
+                            <strong id="worst-payback">0 months</strong>
                         </div>
                     </div>
                 </div>
