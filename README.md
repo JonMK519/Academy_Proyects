@@ -1,29 +1,32 @@
-# 💼 Analizador de Casos de Negocio Pro / Business Case Analyzer Pro
+# 💼 Business Case Analyzer Pro / Analizador de Casos de Negocio Pro
 
-Una herramienta integral de análisis financiero de nivel profesional para evaluar casos de negocio con cálculos avanzados de ROI, análisis VPN y recomendaciones inteligentes.
+A professional-grade financial analysis tool for evaluating business cases with advanced ROI calculations, NPV analysis, and intelligent recommendations.
 
-**🇪🇸 100% EN ESPAÑOL** - Interfaz completamente traducida al español con terminología financiera profesional.
+**🌐 BILINGUAL** - Full English/Spanish interface with professional financial terminology and seamless language switching.
 
-## 📸 Capturas de Pantalla / Screenshots
+## 📸 Screenshots
 
-### Interfaz Principal con Diseño Vibrante
-![Vista Inicial](homepage-initial.png)
+### Professional Dashboard - English Version
+![Professional Design - English](professional-design-final.png)
 
-### Análisis Completo con Recomendaciones
-![Vista Calculada](homepage-calculated.png)
+### Panel Profesional - Versión en Español
+![Diseño Profesional - Español](professional-spanish.png)
 
-*Diseño inspirado en Active Theory con colores neón, glassmorphism avanzado y animaciones fluidas.*
+### Calculated Results with Smart Recommendations
+![Analysis Results](professional-calculated.png)
 
-## ✨ Características
+*Professional corporate design inspired by DEPT Agency and Noomo Agency - clean, minimal, and executive-ready.*
 
-### 🎨 Diseño Moderno Inspirado en Active Theory
-- **Interfaz Vibrante y Radiante**: Colores neón brillantes (rosa #ff006e, púrpura #8338ec, cian #00d9ff, verde #39ff14)
-- **Glassmorphism Avanzado**: Efectos de vidrio esmerilado con blur de 20px y transparencias dinámicas
-- **Gradientes Radiantes**: Rosa-púrpura, azul-cian, verde-lima, naranja-rosa con animaciones
-- **Partículas Flotantes**: Animaciones de fondo con efectos visuales dinámicos
-- **Efectos Neón y Glow**: Sombras coloridas luminosas en cards, botones e inputs
-- **Animaciones Fluidas**: Transiciones suaves de 0.4s con micro-interacciones elegantes
-- **Diseño Responsive Premium**: Totalmente optimizado para escritorio, tablet y móvil
+## ✨ Features
+
+### 🎨 Professional Corporate Design
+- **Clean & Minimal**: White background with sophisticated gray palette
+- **Professional Typography**: Inter font family for clarity and readability
+- **Subtle Shadows**: Elegant card designs with professional depth
+- **Corporate Colors**: Blue (#2563EB), Green (#059669), and Yellow (#F59E0B) for data visualization
+- **Generous Whitespace**: Spacious layout for executive-level presentation
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Bilingual Interface**: Seamless English/Spanish toggle in the header
 
 ### 📊 Panel Financiero / Financial Dashboard
 Métricas financieras en tiempo real en tarjetas interactivas con efectos neón:
@@ -160,31 +163,33 @@ Tiempo requerido para recuperar la inversión inicial a través de los flujos de
 ### TIR (Tasa Interna de Retorno / Internal Rate of Return)
 La tasa de descuento que hace que VPN = 0. Compare con su tasa de retorno requerida.
 
-## 🔧 Stack Técnico / Technical Stack
+## 🔧 Technical Stack / Stack Técnico
 
-- **HTML5**: Marcado semántico en español
-- **CSS3**: Estilos modernos con gradientes vibrantes, glassmorphism, flexbox y grid
-- **Vanilla JavaScript**: Sin dependencias de frameworks
-- **Chart.js**: Visualización de datos interactiva con colores neón
-- **jsPDF**: Generación de PDF del lado del cliente en español
+- **HTML5**: Semantic markup with bilingual support
+- **CSS3**: Professional styling with Inter font, subtle shadows, and clean layouts
+- **Vanilla JavaScript**: No framework dependencies, pure ES6+
+- **Chart.js**: Interactive data visualization with corporate color schemes
+- **jsPDF**: Client-side PDF generation in both languages
 
-## 📱 Compatibilidad de Navegadores / Browser Compatibility
+## 📱 Browser Compatibility / Compatibilidad de Navegadores
 
-- ✅ Chrome/Edge (última versión)
-- ✅ Firefox (última versión)
-- ✅ Safari (última versión)
-- ✅ Navegadores móviles (iOS Safari, Chrome Mobile)
+- ✅ Chrome/Edge (latest version)
+- ✅ Firefox (latest version)
+- ✅ Safari (latest version)
+- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
 
-## 🎨 Filosofía de Diseño / Design Philosophy
+## 🎨 Design Philosophy / Filosofía de Diseño
 
-**Inspirado en Active Theory - Diseño Vibrante y Futurista:**
-- **🌈 Colores Radiantes**: Paleta de neón (rosa #ff006e, púrpura #8338ec, cian #00d9ff, verde #39ff14)
-- **✨ Glassmorphism Avanzado**: Cards translúcidas con blur de 20px y bordes luminosos
-- **🎭 Gradientes Animados**: Rosa-púrpura, azul-cian, verde-lima, naranja-rosa
-- **💫 Partículas Flotantes**: Animaciones de fondo dinámicas con efectos visuales
-- **🌟 Efectos Neón y Glow**: Sombras coloridas luminosas en todos los elementos interactivos
-- **🎨 Animaciones Fluidas**: Transiciones suaves de 0.4s con cubic-bezier
-- **📱 Grid Responsive**: Se adapta perfectamente a todos los tamaños de pantalla
+**Professional Corporate Design - Inspired by DEPT Agency & Noomo Agency:**
+
+- **🎯 Minimal & Clean**: Whitespace-driven layout for executive-level presentation
+- **💼 Corporate Colors**: Professional palette (Blue #2563EB, Green #059669, Yellow #F59E0B)
+- **📐 Professional Typography**: Inter font family with clear hierarchy
+- **🎨 Subtle Elegance**: Soft shadows and refined borders, no excessive effects
+- **🌐 Bilingual Excellence**: Seamless English/Spanish switching
+- **📊 Data-Focused**: Clear visualization with professional chart colors
+- **📱 Fully Responsive**: Perfect adaptation to all screen sizes
+- **⚡ Fast & Efficient**: No unnecessary animations or effects
 
 ## 📊 Cálculo de Ejemplo / Sample Calculation
 

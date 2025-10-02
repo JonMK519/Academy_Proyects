@@ -1,15 +1,274 @@
 // ====================================
-// Analizador de Casos de Negocio Pro - JS Principal
-// Motor Completo de Análisis Financiero
+// Business Case Analyzer Pro - Main JS
+// Complete Financial Analysis Engine
 // ====================================
 
 // Global state
+let currentLanguage = 'en';
 let projectData = null;
 let charts = {
     cashflow: null,
     roi: null,
     scenarios: null
 };
+
+// Translation System
+const translations = {
+    en: {
+        // Header
+        'header-title': 'Business Case Analyzer Pro',
+        'header-subtitle': 'Professional Financial Analysis & ROI Calculator',
+        
+        // Section Titles
+        'section-dashboard': 'Financial Dashboard',
+        'section-project-info': 'Project Information',
+        'section-visual-analysis': 'Visual Analysis',
+        'section-scenarios': 'Scenario Comparison',
+        'section-recommendations': 'Smart Recommendations',
+        'section-export': 'Export Report',
+        
+        // Subsections
+        'subsection-revenue': 'Revenue Projections',
+        'subsection-costs': 'Cost Projections',
+        'subsection-scenarios': 'Scenario Analysis',
+        
+        // Form Labels
+        'label-projectName': 'Project Name',
+        'label-initialInvestment': 'Initial Investment ($)',
+        'label-discountRate': 'Discount Rate (%)',
+        'label-projectDuration': 'Project Duration (months)',
+        'label-yearlyRevenue': 'Annual Revenue Increase ($)',
+        'label-revenueGrowth': 'Revenue Growth Rate (% yearly)',
+        'label-operatingCosts': 'Annual Operating Costs ($)',
+        'label-maintenanceCosts': 'Annual Maintenance Costs ($)',
+        'label-bestCaseMultiplier': 'Best Case Multiplier',
+        'label-worstCaseMultiplier': 'Worst Case Multiplier',
+        
+        // Buttons
+        'btn-calculate': 'Calculate Analysis',
+        'btn-reset': 'Reset Form',
+        'btn-export': 'Export Full Report to PDF',
+        
+        // Tabs
+        'tab-cashflow': 'Cash Flow Over Time',
+        'tab-roi': 'ROI Comparison',
+        'tab-scenarios': 'Scenario Analysis',
+        
+        // Metrics
+        'metric-roi': 'ROI (Return on Investment)',
+        'metric-npv': 'NPV (Net Present Value)',
+        'metric-payback': 'Payback Period',
+        'metric-irr': 'IRR (Internal Rate of Return)',
+        
+        // Scenario Cards
+        'scenario-expected': 'Expected Case',
+        'scenario-best': 'Best Case',
+        'scenario-worst': 'Worst Case',
+        'scenario-roi-label': 'ROI:',
+        'scenario-npv-label': 'NPV:',
+        'scenario-payback-label': 'Payback:',
+        
+        // Messages
+        'export-description': 'Generate a comprehensive PDF report with all metrics, charts and recommendations.',
+        'default-recommendations': 'Complete the form and calculate to receive intelligent recommendations based on your business case analysis.',
+        'loading': 'Analyzing...',
+        'success-message': '✓ Analysis completed successfully! Review the metrics and recommendations below.',
+        
+        // Chart Labels
+        'chart-monthly-cashflow': 'Monthly Cash Flow',
+        'chart-cumulative-cashflow': 'Cumulative Cash Flow',
+        'chart-expected-roi': 'Expected ROI',
+        'chart-best-roi': 'Best Case ROI',
+        'chart-worst-roi': 'Worst Case ROI',
+        
+        // Metric Status
+        'status-positive-return': '✓ Positive return',
+        'status-negative-return': '✗ Negative return',
+        'status-creates-value': '✓ Creates value',
+        'status-destroys-value': '✗ Destroys value',
+        'status-discounted-cashflow': 'Discounted cash flow',
+        'status-months-to-recover': 'months to recover investment',
+        'status-annualized-return': 'Annualized return rate',
+        'status-enter-data': 'Enter data to calculate',
+        
+        // Units
+        'unit-months': 'months',
+        'unit-years': 'years'
+    },
+    es: {
+        // Header
+        'header-title': 'Analizador de Casos de Negocio Pro',
+        'header-subtitle': 'Análisis Financiero Profesional y Calculadora de ROI',
+        
+        // Section Titles
+        'section-dashboard': 'Panel Financiero',
+        'section-project-info': 'Información del Proyecto',
+        'section-visual-analysis': 'Análisis Visual',
+        'section-scenarios': 'Comparación de Escenarios',
+        'section-recommendations': 'Recomendaciones Inteligentes',
+        'section-export': 'Exportar Reporte',
+        
+        // Subsections
+        'subsection-revenue': 'Proyecciones de Ingresos',
+        'subsection-costs': 'Proyecciones de Costos',
+        'subsection-scenarios': 'Análisis de Escenarios',
+        
+        // Form Labels
+        'label-projectName': 'Nombre del Proyecto',
+        'label-initialInvestment': 'Inversión Inicial ($)',
+        'label-discountRate': 'Tasa de Descuento (%)',
+        'label-projectDuration': 'Duración del Proyecto (meses)',
+        'label-yearlyRevenue': 'Incremento de Ingresos Anuales ($)',
+        'label-revenueGrowth': 'Tasa de Crecimiento de Ingresos (% anual)',
+        'label-operatingCosts': 'Costos Operativos Anuales ($)',
+        'label-maintenanceCosts': 'Costos de Mantenimiento Anuales ($)',
+        'label-bestCaseMultiplier': 'Multiplicador Mejor Caso',
+        'label-worstCaseMultiplier': 'Multiplicador Peor Caso',
+        
+        // Buttons
+        'btn-calculate': 'Calcular Análisis',
+        'btn-reset': 'Reiniciar Formulario',
+        'btn-export': 'Exportar Reporte Completo a PDF',
+        
+        // Tabs
+        'tab-cashflow': 'Flujo de Caja en el Tiempo',
+        'tab-roi': 'Comparación de ROI',
+        'tab-scenarios': 'Análisis de Escenarios',
+        
+        // Metrics
+        'metric-roi': 'ROI (Retorno de Inversión)',
+        'metric-npv': 'VPN (Valor Presente Neto)',
+        'metric-payback': 'Período de Recuperación',
+        'metric-irr': 'TIR (Tasa Interna de Retorno)',
+        
+        // Scenario Cards
+        'scenario-expected': 'Caso Esperado',
+        'scenario-best': 'Mejor Caso',
+        'scenario-worst': 'Peor Caso',
+        'scenario-roi-label': 'ROI:',
+        'scenario-npv-label': 'VPN:',
+        'scenario-payback-label': 'Recuperación:',
+        
+        // Messages
+        'export-description': 'Genere un reporte PDF completo con todas las métricas, gráficos y recomendaciones.',
+        'default-recommendations': 'Complete el formulario y calcule para recibir recomendaciones inteligentes basadas en su análisis de caso de negocio.',
+        'loading': 'Analizando...',
+        'success-message': '✓ ¡Análisis completado exitosamente! Revise las métricas y recomendaciones a continuación.',
+        
+        // Chart Labels
+        'chart-monthly-cashflow': 'Flujo de Caja Mensual',
+        'chart-cumulative-cashflow': 'Flujo de Caja Acumulado',
+        'chart-expected-roi': 'ROI Esperado',
+        'chart-best-roi': 'ROI Mejor Caso',
+        'chart-worst-roi': 'ROI Peor Caso',
+        
+        // Metric Status
+        'status-positive-return': '✓ Retorno positivo',
+        'status-negative-return': '✗ Retorno negativo',
+        'status-creates-value': '✓ Genera valor',
+        'status-destroys-value': '✗ Destruye valor',
+        'status-discounted-cashflow': 'Flujo de caja descontado',
+        'status-months-to-recover': 'meses para recuperar inversión',
+        'status-annualized-return': 'Tasa de retorno anualizada',
+        'status-enter-data': 'Ingrese datos para calcular',
+        
+        // Units
+        'unit-months': 'meses',
+        'unit-years': 'años'
+    }
+};
+
+// Language Switching Function
+function switchLanguage(lang) {
+    currentLanguage = lang;
+    document.documentElement.lang = lang;
+    
+    // Update language toggle buttons
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+    
+    // Update all translatable elements
+    const t = translations[lang];
+    
+    // Update by ID
+    Object.keys(t).forEach(key => {
+        const element = document.getElementById(key);
+        if (element) {
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                // Don't change input values, only placeholders if needed
+            } else if (element.tagName === 'BUTTON') {
+                element.textContent = t[key];
+            } else {
+                element.textContent = t[key];
+            }
+        }
+    });
+    
+    // Update form labels
+    const labels = document.querySelectorAll('label[for]');
+    labels.forEach(label => {
+        const forAttr = label.getAttribute('for');
+        const key = `label-${forAttr}`;
+        if (t[key]) {
+            // Preserve the asterisk for required fields
+            const hasAsterisk = label.textContent.includes('*');
+            label.textContent = t[key] + (hasAsterisk ? ' *' : '');
+        }
+    });
+    
+    // Update tabs
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach((tab, index) => {
+        const tabKeys = ['tab-cashflow', 'tab-roi', 'tab-scenarios'];
+        if (tabKeys[index] && t[tabKeys[index]]) {
+            tab.textContent = t[tabKeys[index]];
+        }
+    });
+    
+    // Update scenario card titles and labels
+    document.getElementById('title-expected').textContent = '📊 ' + t['scenario-expected'];
+    document.getElementById('title-best').textContent = '🚀 ' + t['scenario-best'];
+    document.getElementById('title-worst').textContent = '⚠️ ' + t['scenario-worst'];
+    
+    // Update scenario metric labels
+    document.getElementById('label-expected-roi').textContent = t['scenario-roi-label'];
+    document.getElementById('label-expected-npv').textContent = t['scenario-npv-label'];
+    document.getElementById('label-expected-payback').textContent = t['scenario-payback-label'];
+    document.getElementById('label-best-roi').textContent = t['scenario-roi-label'];
+    document.getElementById('label-best-npv').textContent = t['scenario-npv-label'];
+    document.getElementById('label-best-payback').textContent = t['scenario-payback-label'];
+    document.getElementById('label-worst-roi').textContent = t['scenario-roi-label'];
+    document.getElementById('label-worst-npv').textContent = t['scenario-npv-label'];
+    document.getElementById('label-worst-payback').textContent = t['scenario-payback-label'];
+    
+    // Update metric card labels
+    document.getElementById('metric-label-roi').textContent = t['metric-roi'];
+    document.getElementById('metric-label-npv').textContent = t['metric-npv'];
+    document.getElementById('metric-label-payback').textContent = t['metric-payback'];
+    document.getElementById('metric-label-irr').textContent = t['metric-irr'];
+    
+    // Update metric status if they haven't been calculated yet
+    const roiStatus = document.getElementById('roi-status');
+    if (roiStatus.textContent.includes('Enter data') || roiStatus.textContent.includes('Ingrese datos')) {
+        roiStatus.textContent = t['status-enter-data'];
+        document.getElementById('npv-status').textContent = t['status-discounted-cashflow'];
+        document.getElementById('payback-status').textContent = t['status-months-to-recover'];
+        document.getElementById('irr-status').textContent = t['status-annualized-return'];
+    }
+    
+    // Update default recommendations text
+    const recommendations = document.getElementById('recommendations');
+    if (recommendations && recommendations.children.length === 1 && 
+        recommendations.children[0].tagName === 'P') {
+        recommendations.children[0].textContent = t['default-recommendations'];
+        recommendations.children[0].style.color = 'var(--text-muted)';
+    }
+    
+    // Re-render charts if they exist with new labels
+    if (charts.cashflow || charts.roi || charts.scenarios) {
+        // Charts will be updated when recalculating
+    }
+}
 
 // Financial Calculation Functions
 const FinancialCalculator = {
@@ -112,31 +371,41 @@ const FinancialCalculator = {
 // UI Update Functions
 const UIUpdater = {
     updateDashboard(metrics) {
+        const t = translations[currentLanguage];
+        const locale = currentLanguage === 'es' ? 'es-ES' : 'en-US';
+        
         document.getElementById('roi-value').textContent = metrics.roi.toFixed(2) + '%';
-        document.getElementById('npv-value').textContent = '$' + metrics.npv.toLocaleString('es-ES', { maximumFractionDigits: 0 });
+        document.getElementById('npv-value').textContent = '$' + metrics.npv.toLocaleString(locale, { maximumFractionDigits: 0 });
         document.getElementById('payback-value').textContent = metrics.paybackPeriod.toFixed(1);
         document.getElementById('irr-value').textContent = metrics.irr.toFixed(2) + '%';
 
-        // Update status messages
-        document.getElementById('roi-status').textContent = metrics.roi > 0 ? '✓ Retorno positivo' : '✗ Retorno negativo';
-        document.getElementById('npv-status').textContent = metrics.npv > 0 ? '✓ Genera valor' : '✗ Destruye valor';
+        // Update status messages with proper translations
+        const roiStatus = document.getElementById('roi-status');
+        const npvStatus = document.getElementById('npv-status');
+        
+        roiStatus.textContent = metrics.roi > 0 ? t['status-positive-return'] : t['status-negative-return'];
+        npvStatus.textContent = metrics.npv > 0 ? t['status-creates-value'] : t['status-destroys-value'];
     },
 
     updateScenarioCards(expectedMetrics, bestMetrics, worstMetrics) {
+        const t = translations[currentLanguage];
+        const locale = currentLanguage === 'es' ? 'es-ES' : 'en-US';
+        const unitMonths = ' ' + t['unit-months'];
+        
         // Expected case
         document.getElementById('expected-roi').textContent = expectedMetrics.roi.toFixed(2) + '%';
-        document.getElementById('expected-npv').textContent = '$' + expectedMetrics.npv.toLocaleString('es-ES', { maximumFractionDigits: 0 });
-        document.getElementById('expected-payback').textContent = expectedMetrics.paybackPeriod.toFixed(1) + ' meses';
+        document.getElementById('expected-npv').textContent = '$' + expectedMetrics.npv.toLocaleString(locale, { maximumFractionDigits: 0 });
+        document.getElementById('expected-payback').textContent = expectedMetrics.paybackPeriod.toFixed(1) + unitMonths;
 
         // Best case
         document.getElementById('best-roi').textContent = bestMetrics.roi.toFixed(2) + '%';
-        document.getElementById('best-npv').textContent = '$' + bestMetrics.npv.toLocaleString('es-ES', { maximumFractionDigits: 0 });
-        document.getElementById('best-payback').textContent = bestMetrics.paybackPeriod.toFixed(1) + ' meses';
+        document.getElementById('best-npv').textContent = '$' + bestMetrics.npv.toLocaleString(locale, { maximumFractionDigits: 0 });
+        document.getElementById('best-payback').textContent = bestMetrics.paybackPeriod.toFixed(1) + unitMonths;
 
         // Worst case
         document.getElementById('worst-roi').textContent = worstMetrics.roi.toFixed(2) + '%';
-        document.getElementById('worst-npv').textContent = '$' + worstMetrics.npv.toLocaleString('es-ES', { maximumFractionDigits: 0 });
-        document.getElementById('worst-payback').textContent = worstMetrics.paybackPeriod.toFixed(1) + ' meses';
+        document.getElementById('worst-npv').textContent = '$' + worstMetrics.npv.toLocaleString(locale, { maximumFractionDigits: 0 });
+        document.getElementById('worst-payback').textContent = worstMetrics.paybackPeriod.toFixed(1) + unitMonths;
     },
 
     showMessage(type, message) {
@@ -185,24 +454,26 @@ const ChartManager = {
 
         const labels = ['Start', ...Array.from({ length: duration }, (_, i) => `M${i + 1}`)];
 
+        const t = translations[currentLanguage];
+        
         charts.cashflow = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Flujo de Caja Mensual',
+                    label: t['chart-monthly-cashflow'],
                     data: cashFlows,
-                    borderColor: 'rgba(131, 56, 236, 1)',
-                    backgroundColor: 'rgba(131, 56, 236, 0.2)',
-                    borderWidth: 3,
+                    borderColor: '#2563EB',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    borderWidth: 2,
                     fill: true,
                     tension: 0.4
                 }, {
-                    label: 'Flujo de Caja Acumulado',
+                    label: t['chart-cumulative-cashflow'],
                     data: cumulativeCashFlow,
-                    borderColor: 'rgba(57, 255, 20, 1)',
-                    backgroundColor: 'rgba(57, 255, 20, 0.2)',
-                    borderWidth: 3,
+                    borderColor: '#059669',
+                    backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                    borderWidth: 2,
                     fill: true,
                     tension: 0.4
                 }]
@@ -211,16 +482,10 @@ const ChartManager = {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    title: {
-                        display: true,
-                        text: 'Análisis de Flujo de Caja en el Tiempo',
-                        font: { size: 18, weight: 'bold' },
-                        color: '#ffffff'
-                    },
                     legend: {
                         display: true,
                         position: 'top',
-                        labels: { color: '#ffffff', font: { size: 12 } }
+                        labels: { color: '#4B5563', font: { size: 12, weight: '500' } }
                     },
                     tooltip: {
                         mode: 'index',
@@ -231,7 +496,8 @@ const ChartManager = {
                                 if (label) {
                                     label += ': ';
                                 }
-                                label += '$' + context.parsed.y.toLocaleString('es-ES', { maximumFractionDigits: 0 });
+                                const locale = currentLanguage === 'es' ? 'es-ES' : 'en-US';
+                                label += '$' + context.parsed.y.toLocaleString(locale, { maximumFractionDigits: 0 });
                                 return label;
                             }
                         }
@@ -242,15 +508,16 @@ const ChartManager = {
                         beginAtZero: true,
                         ticks: {
                             callback: function(value) {
-                                return '$' + value.toLocaleString('es-ES');
+                                const locale = currentLanguage === 'es' ? 'es-ES' : 'en-US';
+                                return '$' + value.toLocaleString(locale);
                             },
-                            color: '#ffffff'
+                            color: '#6B7280'
                         },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        grid: { color: '#E5E7EB' }
                     },
                     x: {
-                        ticks: { color: '#ffffff' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        ticks: { color: '#6B7280' },
+                        grid: { color: '#E5E7EB' }
                     }
                 },
                 interaction: {
@@ -269,6 +536,7 @@ const ChartManager = {
             return;
         }
         
+        const t = translations[currentLanguage];
         const ctx = document.getElementById('roiChart').getContext('2d');
         
         if (charts.roi) {
@@ -278,33 +546,27 @@ const ChartManager = {
         charts.roi = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Caso Esperado', 'Mejor Caso', 'Peor Caso'],
+                labels: [t['scenario-expected'], t['scenario-best'], t['scenario-worst']],
                 datasets: [{
                     label: 'ROI (%)',
                     data: [expectedROI, bestROI, worstROI],
                     backgroundColor: [
-                        'rgba(0, 217, 255, 0.8)',
-                        'rgba(57, 255, 20, 0.8)',
-                        'rgba(255, 0, 110, 0.8)'
+                        'rgba(37, 99, 235, 0.8)',
+                        'rgba(5, 150, 105, 0.8)',
+                        'rgba(245, 158, 11, 0.8)'
                     ],
                     borderColor: [
-                        'rgba(0, 217, 255, 1)',
-                        'rgba(57, 255, 20, 1)',
-                        'rgba(255, 0, 110, 1)'
+                        '#2563EB',
+                        '#059669',
+                        '#F59E0B'
                     ],
-                    borderWidth: 3
+                    borderWidth: 2
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    title: {
-                        display: true,
-                        text: 'Comparación de ROI entre Escenarios',
-                        font: { size: 18, weight: 'bold' },
-                        color: '#ffffff'
-                    },
                     legend: {
                         display: false
                     },
@@ -323,13 +585,13 @@ const ChartManager = {
                             callback: function(value) {
                                 return value + '%';
                             },
-                            color: '#ffffff'
+                            color: '#6B7280'
                         },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        grid: { color: '#E5E7EB' }
                     },
                     x: {
-                        ticks: { color: '#ffffff' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        ticks: { color: '#6B7280' },
+                        grid: { color: '#E5E7EB' }
                     }
                 }
             }
@@ -343,6 +605,7 @@ const ChartManager = {
             return;
         }
         
+        const t = translations[currentLanguage];
         const ctx = document.getElementById('scenariosChart').getContext('2d');
         
         if (charts.scenarios) {
@@ -352,64 +615,58 @@ const ChartManager = {
         charts.scenarios = new Chart(ctx, {
             type: 'radar',
             data: {
-                labels: ['ROI', 'VPN (escalado)', 'Período Recuperación (inv)', 'TIR'],
+                labels: ['ROI', 'NPV (scaled)', 'Payback (inv)', 'IRR'],
                 datasets: [{
-                    label: 'Caso Esperado',
+                    label: t['scenario-expected'],
                     data: [
                         expectedMetrics.roi,
                         expectedMetrics.npv / 1000,
                         100 / (expectedMetrics.paybackPeriod || 1),
                         expectedMetrics.irr
                     ],
-                    borderColor: 'rgba(0, 217, 255, 1)',
-                    backgroundColor: 'rgba(0, 217, 255, 0.3)',
-                    borderWidth: 3
+                    borderColor: '#2563EB',
+                    backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                    borderWidth: 2
                 }, {
-                    label: 'Mejor Caso',
+                    label: t['scenario-best'],
                     data: [
                         bestMetrics.roi,
                         bestMetrics.npv / 1000,
                         100 / (bestMetrics.paybackPeriod || 1),
                         bestMetrics.irr
                     ],
-                    borderColor: 'rgba(57, 255, 20, 1)',
-                    backgroundColor: 'rgba(57, 255, 20, 0.3)',
-                    borderWidth: 3
+                    borderColor: '#059669',
+                    backgroundColor: 'rgba(5, 150, 105, 0.2)',
+                    borderWidth: 2
                 }, {
-                    label: 'Peor Caso',
+                    label: t['scenario-worst'],
                     data: [
                         worstMetrics.roi,
                         worstMetrics.npv / 1000,
                         100 / (worstMetrics.paybackPeriod || 1),
                         worstMetrics.irr
                     ],
-                    borderColor: 'rgba(255, 0, 110, 1)',
-                    backgroundColor: 'rgba(255, 0, 110, 0.3)',
-                    borderWidth: 3
+                    borderColor: '#F59E0B',
+                    backgroundColor: 'rgba(245, 158, 11, 0.2)',
+                    borderWidth: 2
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    title: {
-                        display: true,
-                        text: 'Análisis Multi-Dimensional de Escenarios',
-                        font: { size: 18, weight: 'bold' },
-                        color: '#ffffff'
-                    },
                     legend: {
                         display: true,
                         position: 'top',
-                        labels: { color: '#ffffff', font: { size: 12 } }
+                        labels: { color: '#4B5563', font: { size: 12, weight: '500' } }
                     }
                 },
                 scales: {
                     r: {
                         beginAtZero: true,
-                        ticks: { color: '#ffffff', backdropColor: 'transparent' },
-                        grid: { color: 'rgba(255, 255, 255, 0.2)' },
-                        pointLabels: { color: '#ffffff', font: { size: 12 } }
+                        ticks: { color: '#6B7280', backdropColor: 'transparent' },
+                        grid: { color: '#E5E7EB' },
+                        pointLabels: { color: '#4B5563', font: { size: 12, weight: '500' } }
                     }
                 }
             }
