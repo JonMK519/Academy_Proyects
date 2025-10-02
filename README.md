@@ -4,6 +4,16 @@ Una herramienta integral de análisis financiero de nivel profesional para evalu
 
 **🇪🇸 100% EN ESPAÑOL** - Interfaz completamente traducida al español con terminología financiera profesional.
 
+## 📸 Capturas de Pantalla / Screenshots
+
+### Interfaz Principal con Diseño Vibrante
+![Vista Inicial](homepage-initial.png)
+
+### Análisis Completo con Recomendaciones
+![Vista Calculada](homepage-calculated.png)
+
+*Diseño inspirado en Active Theory con colores neón, glassmorphism avanzado y animaciones fluidas.*
+
 ## ✨ Características
 
 ### 🎨 Diseño Moderno Inspirado en Active Theory
