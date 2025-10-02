@@ -1,61 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Case Analyzer Pro</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        header {
-            background: #007bff;
-            color: white;
-            padding: 20px;
-        }
-        .container {
-            padding: 20px;
-        }
-        #chart {
-            width: 100%;
-            height: 400px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
 <body>
     <header>
         <h1>Business Case Analyzer Pro</h1>
-        <h2>Your subtitle here</h2>
     </header>
-    <div class="container">
-        <section id="analysis-engine">
-            <h3>Analysis Engine</h3>
-            <div id="chart"></div>
-            <button onclick="generateChart()">Generate Chart</button>
-            <button onclick="exportToPDF()">Export to PDF</button>
+    <main>
+        <section>
+            <h2>Interactive Charts</h2>
+            <canvas id="myChart"></canvas>
         </section>
-    </div>
-    <footer>
-        <p>&copy; 2023</p>
-    </footer>
+        <section>
+            <h2>Data Entry</h2>
+            <form id="dataForm">
+                <label for="input1">Input 1:</label>
+                <input type="text" id="input1" name="input1" required>
+                <label for="input2">Input 2:</label>
+                <input type="number" id="input2" name="input2" required>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+        <section>
+            <h2>Scenario Comparison</h2>
+            <div id="comparison"></div>
+        </section>
+        <button id="exportBtn">Export to PDF</button>
+    </main>
     <script>
-        const sampleData = [
-            { label: "Scenario 1", value: 100 },
-            { label: "Scenario 2", value: 200 },
-            { label: "Scenario 3", value: 300 }
-        ];
+        // Chart.js code for interactive charts
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Scenario 1', 'Scenario 2'],
+                datasets: [{
+                    label: 'ROI',
+                    data: [12, 19],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
 
-        function calculateROI() {
-            // Implementation here
-        }
+        // jsPDF code for PDF export
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.text('Business Case Analyzer Pro', 10, 10);
+            doc.save('Business_Case_Analyzer.pdf');
+        });
 
-        function generateChart() {
-            // Implementation here
-        }
-
-        function exportToPDF() {
-            // Implementation here
-        }
+        // Handle form submission
+        document.getElementById('dataForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const input1 = document.getElementById('input1').value;
+            const input2 = document.getElementById('input2').value;
+            // Perform ROI calculations and update comparison section
+            document.getElementById('comparison').innerHTML = `<p>Scenario: ${input1} - ROI: ${input2}</p>`;
+        });
     </script>
 </body>
 </html>
