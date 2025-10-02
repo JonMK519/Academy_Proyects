@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Case Analyzer Pro - Professional Financial Analysis Tool</title>
+    <title>Analizador de Casos de Negocio Pro - Herramienta Profesional de Análisis Financiero</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
@@ -11,103 +11,103 @@
 <body>
     <!-- Header -->
     <header>
-        <h1>💼 Business Case Analyzer Pro</h1>
-        <p>Professional Financial Analysis & ROI Calculator</p>
+        <h1>💼 Analizador de Casos de Negocio Pro</h1>
+        <p>Análisis Financiero Profesional y Calculadora de Retorno de Inversión</p>
     </header>
 
     <main>
         <!-- Dashboard with Key Metrics -->
         <section>
-            <h2>📊 Financial Dashboard</h2>
+            <h2>📊 Panel Financiero</h2>
             <div class="dashboard" id="dashboard">
                 <div class="metric-card success">
-                    <div class="metric-label">ROI (Return on Investment)</div>
+                    <div class="metric-label">ROI (Retorno de Inversión)</div>
                     <div class="metric-value" id="roi-value">0%</div>
-                    <div class="metric-change" id="roi-status">Enter data to calculate</div>
+                    <div class="metric-change" id="roi-status">Ingrese datos para calcular</div>
                 </div>
                 <div class="metric-card info">
-                    <div class="metric-label">NPV (Net Present Value)</div>
+                    <div class="metric-label">VPN (Valor Presente Neto)</div>
                     <div class="metric-value" id="npv-value">$0</div>
-                    <div class="metric-change" id="npv-status">Discounted cash flow</div>
+                    <div class="metric-change" id="npv-status">Flujo de caja descontado</div>
                 </div>
                 <div class="metric-card warning">
-                    <div class="metric-label">Payback Period</div>
+                    <div class="metric-label">Período de Recuperación</div>
                     <div class="metric-value" id="payback-value">0</div>
-                    <div class="metric-change">months to break even</div>
+                    <div class="metric-change">meses para recuperar inversión</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-label">IRR (Internal Rate of Return)</div>
+                    <div class="metric-label">TIR (Tasa Interna de Retorno)</div>
                     <div class="metric-value" id="irr-value">0%</div>
-                    <div class="metric-change">Annualized return rate</div>
+                    <div class="metric-change">Tasa de retorno anualizada</div>
                 </div>
             </div>
         </section>
 
         <!-- Project Data Entry Form -->
         <section>
-            <h2>📝 Project Information</h2>
+            <h2>📝 Información del Proyecto</h2>
             <form id="projectForm">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="projectName">Project Name *</label>
-                        <input type="text" id="projectName" placeholder="e.g., Digital Transformation" required>
+                        <label for="projectName">Nombre del Proyecto *</label>
+                        <input type="text" id="projectName" placeholder="ej., Transformación Digital" required>
                     </div>
                     <div class="form-group">
-                        <label for="initialInvestment">Initial Investment ($) *</label>
+                        <label for="initialInvestment">Inversión Inicial ($) *</label>
                         <input type="number" id="initialInvestment" placeholder="100000" min="0" step="1000" required>
                     </div>
                     <div class="form-group">
-                        <label for="discountRate">Discount Rate (%) *</label>
+                        <label for="discountRate">Tasa de Descuento (%) *</label>
                         <input type="number" id="discountRate" placeholder="10" min="0" max="100" step="0.1" value="10" required>
                     </div>
                     <div class="form-group">
-                        <label for="projectDuration">Project Duration (months) *</label>
+                        <label for="projectDuration">Duración del Proyecto (meses) *</label>
                         <input type="number" id="projectDuration" placeholder="24" min="1" max="120" value="24" required>
                     </div>
                 </div>
 
-                <h3 style="margin-top: 20px; color: var(--primary-color);">💰 Revenue Projections</h3>
+                <h3 style="margin-top: 20px; color: var(--primary-color);">💰 Proyecciones de Ingresos</h3>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="yearlyRevenue">Annual Revenue Increase ($) *</label>
+                        <label for="yearlyRevenue">Incremento de Ingresos Anuales ($) *</label>
                         <input type="number" id="yearlyRevenue" placeholder="50000" min="0" step="1000" required>
                     </div>
                     <div class="form-group">
-                        <label for="revenueGrowth">Revenue Growth Rate (% per year)</label>
+                        <label for="revenueGrowth">Tasa de Crecimiento de Ingresos (% anual)</label>
                         <input type="number" id="revenueGrowth" placeholder="5" min="0" max="100" step="0.1" value="0">
                     </div>
                 </div>
 
-                <h3 style="margin-top: 20px; color: var(--primary-color);">💸 Cost Projections</h3>
+                <h3 style="margin-top: 20px; color: var(--primary-color);">💸 Proyecciones de Costos</h3>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="operatingCosts">Annual Operating Costs ($)</label>
+                        <label for="operatingCosts">Costos Operativos Anuales ($)</label>
                         <input type="number" id="operatingCosts" placeholder="20000" min="0" step="1000" value="0">
                     </div>
                     <div class="form-group">
-                        <label for="maintenanceCosts">Annual Maintenance Costs ($)</label>
+                        <label for="maintenanceCosts">Costos de Mantenimiento Anuales ($)</label>
                         <input type="number" id="maintenanceCosts" placeholder="5000" min="0" step="1000" value="0">
                     </div>
                 </div>
 
-                <h3 style="margin-top: 20px; color: var(--primary-color);">📈 Scenario Analysis</h3>
+                <h3 style="margin-top: 20px; color: var(--primary-color);">📈 Análisis de Escenarios</h3>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="bestCaseMultiplier">Best Case Multiplier</label>
+                        <label for="bestCaseMultiplier">Multiplicador Mejor Caso</label>
                         <input type="number" id="bestCaseMultiplier" placeholder="1.3" min="1" max="3" step="0.1" value="1.3">
                     </div>
                     <div class="form-group">
-                        <label for="worstCaseMultiplier">Worst Case Multiplier</label>
+                        <label for="worstCaseMultiplier">Multiplicador Peor Caso</label>
                         <input type="number" id="worstCaseMultiplier" placeholder="0.7" min="0.1" max="1" step="0.1" value="0.7">
                     </div>
                 </div>
 
                 <div class="button-group">
                     <button type="submit" class="btn-primary">
-                        🧮 Calculate Analysis
+                        🧮 Calcular Análisis
                     </button>
                     <button type="button" class="btn-secondary" onclick="resetForm()">
-                        🔄 Reset Form
+                        🔄 Reiniciar Formulario
                     </button>
                 </div>
             </form>
@@ -116,11 +116,11 @@
 
         <!-- Charts Section with Tabs -->
         <section>
-            <h2>📈 Visual Analytics</h2>
+            <h2>📈 Análisis Visual</h2>
             <div class="tabs">
-                <button class="tab active" onclick="switchTab('cashflow')">Cash Flow Over Time</button>
-                <button class="tab" onclick="switchTab('roi')">ROI Comparison</button>
-                <button class="tab" onclick="switchTab('scenarios')">Scenario Analysis</button>
+                <button class="tab active" onclick="switchTab('cashflow')">Flujo de Caja en el Tiempo</button>
+                <button class="tab" onclick="switchTab('roi')">Comparación de ROI</button>
+                <button class="tab" onclick="switchTab('scenarios')">Análisis de Escenarios</button>
             </div>
 
             <div id="cashflow-tab" class="tab-content active">
@@ -144,58 +144,58 @@
 
         <!-- Scenario Comparison Cards -->
         <section>
-            <h2>🎯 Scenario Comparison</h2>
+            <h2>🎯 Comparación de Escenarios</h2>
             <div class="scenario-grid" id="scenarioGrid">
                 <div class="scenario-card expected">
-                    <div class="scenario-title">📊 Expected Case</div>
+                    <div class="scenario-title">📊 Caso Esperado</div>
                     <div class="scenario-metrics">
                         <div class="scenario-metric">
                             <span>ROI:</span>
                             <strong id="expected-roi">0%</strong>
                         </div>
                         <div class="scenario-metric">
-                            <span>NPV:</span>
+                            <span>VPN:</span>
                             <strong id="expected-npv">$0</strong>
                         </div>
                         <div class="scenario-metric">
-                            <span>Payback:</span>
-                            <strong id="expected-payback">0 months</strong>
+                            <span>Recuperación:</span>
+                            <strong id="expected-payback">0 meses</strong>
                         </div>
                     </div>
                 </div>
 
                 <div class="scenario-card best">
-                    <div class="scenario-title">🚀 Best Case</div>
+                    <div class="scenario-title">🚀 Mejor Caso</div>
                     <div class="scenario-metrics">
                         <div class="scenario-metric">
                             <span>ROI:</span>
                             <strong id="best-roi">0%</strong>
                         </div>
                         <div class="scenario-metric">
-                            <span>NPV:</span>
+                            <span>VPN:</span>
                             <strong id="best-npv">$0</strong>
                         </div>
                         <div class="scenario-metric">
-                            <span>Payback:</span>
-                            <strong id="best-payback">0 months</strong>
+                            <span>Recuperación:</span>
+                            <strong id="best-payback">0 meses</strong>
                         </div>
                     </div>
                 </div>
 
                 <div class="scenario-card worst">
-                    <div class="scenario-title">⚠️ Worst Case</div>
+                    <div class="scenario-title">⚠️ Peor Caso</div>
                     <div class="scenario-metrics">
                         <div class="scenario-metric">
                             <span>ROI:</span>
                             <strong id="worst-roi">0%</strong>
                         </div>
                         <div class="scenario-metric">
-                            <span>NPV:</span>
+                            <span>VPN:</span>
                             <strong id="worst-npv">$0</strong>
                         </div>
                         <div class="scenario-metric">
-                            <span>Payback:</span>
-                            <strong id="worst-payback">0 months</strong>
+                            <span>Recuperación:</span>
+                            <strong id="worst-payback">0 meses</strong>
                         </div>
                     </div>
                 </div>
@@ -204,18 +204,18 @@
 
         <!-- Smart Recommendations -->
         <section>
-            <h2>💡 Smart Recommendations</h2>
+            <h2>💡 Recomendaciones Inteligentes</h2>
             <div class="recommendations" id="recommendations">
-                <p style="color: #718096;">Complete the form and calculate to receive intelligent recommendations based on your business case analysis.</p>
+                <p style="color: #718096;">Complete el formulario y calcule para recibir recomendaciones inteligentes basadas en su análisis de caso de negocio.</p>
             </div>
         </section>
 
         <!-- Export Options -->
         <section class="text-center">
-            <h2>📄 Export Report</h2>
-            <p style="color: #718096; margin-bottom: 20px;">Generate a comprehensive PDF report with all metrics, charts, and recommendations.</p>
+            <h2>📄 Exportar Reporte</h2>
+            <p style="color: #718096; margin-bottom: 20px;">Genere un reporte PDF completo con todas las métricas, gráficos y recomendaciones.</p>
             <button class="btn-export" onclick="exportToPDF()">
-                📥 Export Complete Report to PDF
+                📥 Exportar Reporte Completo a PDF
             </button>
         </section>
     </main>

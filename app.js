@@ -1,6 +1,6 @@
 // ====================================
-// Business Case Analyzer Pro - Main JS
-// Complete Financial Analysis Engine
+// Analizador de Casos de Negocio Pro - JS Principal
+// Motor Completo de Análisis Financiero
 // ====================================
 
 // Global state
@@ -113,30 +113,30 @@ const FinancialCalculator = {
 const UIUpdater = {
     updateDashboard(metrics) {
         document.getElementById('roi-value').textContent = metrics.roi.toFixed(2) + '%';
-        document.getElementById('npv-value').textContent = '$' + metrics.npv.toLocaleString('en-US', { maximumFractionDigits: 0 });
+        document.getElementById('npv-value').textContent = '$' + metrics.npv.toLocaleString('es-ES', { maximumFractionDigits: 0 });
         document.getElementById('payback-value').textContent = metrics.paybackPeriod.toFixed(1);
         document.getElementById('irr-value').textContent = metrics.irr.toFixed(2) + '%';
 
         // Update status messages
-        document.getElementById('roi-status').textContent = metrics.roi > 0 ? '✓ Positive return' : '✗ Negative return';
-        document.getElementById('npv-status').textContent = metrics.npv > 0 ? '✓ Value creating' : '✗ Value destroying';
+        document.getElementById('roi-status').textContent = metrics.roi > 0 ? '✓ Retorno positivo' : '✗ Retorno negativo';
+        document.getElementById('npv-status').textContent = metrics.npv > 0 ? '✓ Genera valor' : '✗ Destruye valor';
     },
 
     updateScenarioCards(expectedMetrics, bestMetrics, worstMetrics) {
         // Expected case
         document.getElementById('expected-roi').textContent = expectedMetrics.roi.toFixed(2) + '%';
-        document.getElementById('expected-npv').textContent = '$' + expectedMetrics.npv.toLocaleString('en-US', { maximumFractionDigits: 0 });
-        document.getElementById('expected-payback').textContent = expectedMetrics.paybackPeriod.toFixed(1) + ' months';
+        document.getElementById('expected-npv').textContent = '$' + expectedMetrics.npv.toLocaleString('es-ES', { maximumFractionDigits: 0 });
+        document.getElementById('expected-payback').textContent = expectedMetrics.paybackPeriod.toFixed(1) + ' meses';
 
         // Best case
         document.getElementById('best-roi').textContent = bestMetrics.roi.toFixed(2) + '%';
-        document.getElementById('best-npv').textContent = '$' + bestMetrics.npv.toLocaleString('en-US', { maximumFractionDigits: 0 });
-        document.getElementById('best-payback').textContent = bestMetrics.paybackPeriod.toFixed(1) + ' months';
+        document.getElementById('best-npv').textContent = '$' + bestMetrics.npv.toLocaleString('es-ES', { maximumFractionDigits: 0 });
+        document.getElementById('best-payback').textContent = bestMetrics.paybackPeriod.toFixed(1) + ' meses';
 
         // Worst case
         document.getElementById('worst-roi').textContent = worstMetrics.roi.toFixed(2) + '%';
-        document.getElementById('worst-npv').textContent = '$' + worstMetrics.npv.toLocaleString('en-US', { maximumFractionDigits: 0 });
-        document.getElementById('worst-payback').textContent = worstMetrics.paybackPeriod.toFixed(1) + ' months';
+        document.getElementById('worst-npv').textContent = '$' + worstMetrics.npv.toLocaleString('es-ES', { maximumFractionDigits: 0 });
+        document.getElementById('worst-payback').textContent = worstMetrics.paybackPeriod.toFixed(1) + ' meses';
     },
 
     showMessage(type, message) {
@@ -190,19 +190,19 @@ const ChartManager = {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Monthly Cash Flow',
+                    label: 'Flujo de Caja Mensual',
                     data: cashFlows,
-                    borderColor: 'rgba(102, 126, 234, 1)',
-                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                    borderWidth: 2,
+                    borderColor: 'rgba(131, 56, 236, 1)',
+                    backgroundColor: 'rgba(131, 56, 236, 0.2)',
+                    borderWidth: 3,
                     fill: true,
                     tension: 0.4
                 }, {
-                    label: 'Cumulative Cash Flow',
+                    label: 'Flujo de Caja Acumulado',
                     data: cumulativeCashFlow,
-                    borderColor: 'rgba(0, 212, 170, 1)',
-                    backgroundColor: 'rgba(0, 212, 170, 0.1)',
-                    borderWidth: 2,
+                    borderColor: 'rgba(57, 255, 20, 1)',
+                    backgroundColor: 'rgba(57, 255, 20, 0.2)',
+                    borderWidth: 3,
                     fill: true,
                     tension: 0.4
                 }]
@@ -213,12 +213,14 @@ const ChartManager = {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Cash Flow Analysis Over Time',
-                        font: { size: 16, weight: 'bold' }
+                        text: 'Análisis de Flujo de Caja en el Tiempo',
+                        font: { size: 18, weight: 'bold' },
+                        color: '#ffffff'
                     },
                     legend: {
                         display: true,
-                        position: 'top'
+                        position: 'top',
+                        labels: { color: '#ffffff', font: { size: 12 } }
                     },
                     tooltip: {
                         mode: 'index',
@@ -229,7 +231,7 @@ const ChartManager = {
                                 if (label) {
                                     label += ': ';
                                 }
-                                label += '$' + context.parsed.y.toLocaleString('en-US', { maximumFractionDigits: 0 });
+                                label += '$' + context.parsed.y.toLocaleString('es-ES', { maximumFractionDigits: 0 });
                                 return label;
                             }
                         }
@@ -240,9 +242,15 @@ const ChartManager = {
                         beginAtZero: true,
                         ticks: {
                             callback: function(value) {
-                                return '$' + value.toLocaleString('en-US');
-                            }
-                        }
+                                return '$' + value.toLocaleString('es-ES');
+                            },
+                            color: '#ffffff'
+                        },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    x: {
+                        ticks: { color: '#ffffff' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
                     }
                 },
                 interaction: {
@@ -270,21 +278,21 @@ const ChartManager = {
         charts.roi = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Expected Case', 'Best Case', 'Worst Case'],
+                labels: ['Caso Esperado', 'Mejor Caso', 'Peor Caso'],
                 datasets: [{
                     label: 'ROI (%)',
                     data: [expectedROI, bestROI, worstROI],
                     backgroundColor: [
-                        'rgba(79, 172, 254, 0.8)',
-                        'rgba(0, 212, 170, 0.8)',
-                        'rgba(255, 107, 107, 0.8)'
+                        'rgba(0, 217, 255, 0.8)',
+                        'rgba(57, 255, 20, 0.8)',
+                        'rgba(255, 0, 110, 0.8)'
                     ],
                     borderColor: [
-                        'rgba(79, 172, 254, 1)',
-                        'rgba(0, 212, 170, 1)',
-                        'rgba(255, 107, 107, 1)'
+                        'rgba(0, 217, 255, 1)',
+                        'rgba(57, 255, 20, 1)',
+                        'rgba(255, 0, 110, 1)'
                     ],
-                    borderWidth: 2
+                    borderWidth: 3
                 }]
             },
             options: {
@@ -293,8 +301,9 @@ const ChartManager = {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'ROI Comparison Across Scenarios',
-                        font: { size: 16, weight: 'bold' }
+                        text: 'Comparación de ROI entre Escenarios',
+                        font: { size: 18, weight: 'bold' },
+                        color: '#ffffff'
                     },
                     legend: {
                         display: false
@@ -313,8 +322,14 @@ const ChartManager = {
                         ticks: {
                             callback: function(value) {
                                 return value + '%';
-                            }
-                        }
+                            },
+                            color: '#ffffff'
+                        },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    x: {
+                        ticks: { color: '#ffffff' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
                     }
                 }
             }
@@ -337,40 +352,40 @@ const ChartManager = {
         charts.scenarios = new Chart(ctx, {
             type: 'radar',
             data: {
-                labels: ['ROI', 'NPV (scaled)', 'Payback Period (inv)', 'IRR'],
+                labels: ['ROI', 'VPN (escalado)', 'Período Recuperación (inv)', 'TIR'],
                 datasets: [{
-                    label: 'Expected Case',
+                    label: 'Caso Esperado',
                     data: [
                         expectedMetrics.roi,
                         expectedMetrics.npv / 1000,
                         100 / (expectedMetrics.paybackPeriod || 1),
                         expectedMetrics.irr
                     ],
-                    borderColor: 'rgba(79, 172, 254, 1)',
-                    backgroundColor: 'rgba(79, 172, 254, 0.2)',
-                    borderWidth: 2
+                    borderColor: 'rgba(0, 217, 255, 1)',
+                    backgroundColor: 'rgba(0, 217, 255, 0.3)',
+                    borderWidth: 3
                 }, {
-                    label: 'Best Case',
+                    label: 'Mejor Caso',
                     data: [
                         bestMetrics.roi,
                         bestMetrics.npv / 1000,
                         100 / (bestMetrics.paybackPeriod || 1),
                         bestMetrics.irr
                     ],
-                    borderColor: 'rgba(0, 212, 170, 1)',
-                    backgroundColor: 'rgba(0, 212, 170, 0.2)',
-                    borderWidth: 2
+                    borderColor: 'rgba(57, 255, 20, 1)',
+                    backgroundColor: 'rgba(57, 255, 20, 0.3)',
+                    borderWidth: 3
                 }, {
-                    label: 'Worst Case',
+                    label: 'Peor Caso',
                     data: [
                         worstMetrics.roi,
                         worstMetrics.npv / 1000,
                         100 / (worstMetrics.paybackPeriod || 1),
                         worstMetrics.irr
                     ],
-                    borderColor: 'rgba(255, 107, 107, 1)',
-                    backgroundColor: 'rgba(255, 107, 107, 0.2)',
-                    borderWidth: 2
+                    borderColor: 'rgba(255, 0, 110, 1)',
+                    backgroundColor: 'rgba(255, 0, 110, 0.3)',
+                    borderWidth: 3
                 }]
             },
             options: {
@@ -379,17 +394,22 @@ const ChartManager = {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Multi-Dimensional Scenario Analysis',
-                        font: { size: 16, weight: 'bold' }
+                        text: 'Análisis Multi-Dimensional de Escenarios',
+                        font: { size: 18, weight: 'bold' },
+                        color: '#ffffff'
                     },
                     legend: {
                         display: true,
-                        position: 'top'
+                        position: 'top',
+                        labels: { color: '#ffffff', font: { size: 12 } }
                     }
                 },
                 scales: {
                     r: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        ticks: { color: '#ffffff', backdropColor: 'transparent' },
+                        grid: { color: 'rgba(255, 255, 255, 0.2)' },
+                        pointLabels: { color: '#ffffff', font: { size: 12 } }
                     }
                 }
             }
@@ -407,25 +427,25 @@ const RecommendationEngine = {
             recommendations.push({
                 type: 'success',
                 icon: '✅',
-                text: `Excellent ROI of ${expectedMetrics.roi.toFixed(2)}%! This project shows strong financial returns and is highly recommended for approval.`
+                text: `¡Excelente ROI del ${expectedMetrics.roi.toFixed(2)}%! Este proyecto muestra retornos financieros sólidos y es altamente recomendado para su aprobación.`
             });
         } else if (expectedMetrics.roi > 20) {
             recommendations.push({
                 type: 'info',
                 icon: '👍',
-                text: `Good ROI of ${expectedMetrics.roi.toFixed(2)}%. This project is financially viable and should be considered favorably.`
+                text: `Buen ROI del ${expectedMetrics.roi.toFixed(2)}%. Este proyecto es financieramente viable y debería considerarse favorablemente.`
             });
         } else if (expectedMetrics.roi > 0) {
             recommendations.push({
                 type: 'warning',
                 icon: '⚠️',
-                text: `Moderate ROI of ${expectedMetrics.roi.toFixed(2)}%. Consider ways to increase revenue or reduce costs to improve returns.`
+                text: `ROI moderado del ${expectedMetrics.roi.toFixed(2)}%. Considere formas de aumentar los ingresos o reducir costos para mejorar los retornos.`
             });
         } else {
             recommendations.push({
                 type: 'danger',
                 icon: '❌',
-                text: `Negative ROI of ${expectedMetrics.roi.toFixed(2)}%. This project is not financially viable in its current form and requires significant changes.`
+                text: `ROI negativo del ${expectedMetrics.roi.toFixed(2)}%. Este proyecto no es financieramente viable en su forma actual y requiere cambios significativos.`
             });
         }
 
@@ -434,13 +454,13 @@ const RecommendationEngine = {
             recommendations.push({
                 type: 'success',
                 icon: '💰',
-                text: `Positive NPV of $${expectedMetrics.npv.toLocaleString('en-US', { maximumFractionDigits: 0 })} indicates the project will create value after accounting for the time value of money.`
+                text: `VPN positivo de $${expectedMetrics.npv.toLocaleString('es-ES', { maximumFractionDigits: 0 })} indica que el proyecto creará valor después de considerar el valor temporal del dinero.`
             });
         } else {
             recommendations.push({
                 type: 'danger',
                 icon: '📉',
-                text: `Negative NPV of $${expectedMetrics.npv.toLocaleString('en-US', { maximumFractionDigits: 0 })} suggests the project will destroy value. Review discount rate and revenue projections.`
+                text: `VPN negativo de $${expectedMetrics.npv.toLocaleString('es-ES', { maximumFractionDigits: 0 })} sugiere que el proyecto destruirá valor. Revise la tasa de descuento y proyecciones de ingresos.`
             });
         }
 
@@ -449,25 +469,25 @@ const RecommendationEngine = {
             recommendations.push({
                 type: 'success',
                 icon: '⚡',
-                text: `Quick payback period of ${expectedMetrics.paybackPeriod.toFixed(1)} months. You'll recover your investment within a year.`
+                text: `Período de recuperación rápido de ${expectedMetrics.paybackPeriod.toFixed(1)} meses. Recuperará su inversión en menos de un año.`
             });
         } else if (expectedMetrics.paybackPeriod <= 24) {
             recommendations.push({
                 type: 'info',
                 icon: '⏱️',
-                text: `Reasonable payback period of ${expectedMetrics.paybackPeriod.toFixed(1)} months (${(expectedMetrics.paybackPeriod / 12).toFixed(1)} years).`
+                text: `Período de recuperación razonable de ${expectedMetrics.paybackPeriod.toFixed(1)} meses (${(expectedMetrics.paybackPeriod / 12).toFixed(1)} años).`
             });
         } else if (expectedMetrics.paybackPeriod < data.projectDuration) {
             recommendations.push({
                 type: 'warning',
                 icon: '⏳',
-                text: `Long payback period of ${expectedMetrics.paybackPeriod.toFixed(1)} months. Consider if this timeline aligns with your strategic goals.`
+                text: `Período de recuperación largo de ${expectedMetrics.paybackPeriod.toFixed(1)} meses. Considere si este plazo se alinea con sus objetivos estratégicos.`
             });
         } else {
             recommendations.push({
                 type: 'danger',
                 icon: '🚫',
-                text: `Payback period exceeds project duration. The project will not break even within the planned timeframe.`
+                text: `El período de recuperación excede la duración del proyecto. El proyecto no alcanzará el punto de equilibrio dentro del plazo planificado.`
             });
         }
 
@@ -477,13 +497,13 @@ const RecommendationEngine = {
             recommendations.push({
                 type: 'warning',
                 icon: '🎲',
-                text: `High variability in scenarios (${roiRange.toFixed(0)}% range) indicates significant risk. Consider risk mitigation strategies.`
+                text: `Alta variabilidad en escenarios (rango de ${roiRange.toFixed(0)}%) indica riesgo significativo. Considere estrategias de mitigación de riesgos.`
             });
         } else if (roiRange < 30) {
             recommendations.push({
                 type: 'success',
                 icon: '🎯',
-                text: `Low variability in scenarios suggests consistent outcomes with manageable risk.`
+                text: `Baja variabilidad en escenarios sugiere resultados consistentes con riesgo manejable.`
             });
         }
 
@@ -492,7 +512,7 @@ const RecommendationEngine = {
             recommendations.push({
                 type: 'warning',
                 icon: '⚠️',
-                text: `Worst case scenario shows negative ROI (${worstMetrics.roi.toFixed(2)}%). Ensure you have contingency plans if revenues fall short.`
+                text: `El escenario del peor caso muestra ROI negativo (${worstMetrics.roi.toFixed(2)}%). Asegúrese de tener planes de contingencia si los ingresos son menores a lo esperado.`
             });
         }
 
@@ -501,19 +521,19 @@ const RecommendationEngine = {
             recommendations.push({
                 type: 'success',
                 icon: '📈',
-                text: `IRR of ${expectedMetrics.irr.toFixed(2)}% significantly exceeds your discount rate of ${data.discountRate}%, indicating strong value creation.`
+                text: `La TIR del ${expectedMetrics.irr.toFixed(2)}% excede significativamente su tasa de descuento del ${data.discountRate}%, indicando una fuerte creación de valor.`
             });
         } else if (expectedMetrics.irr > data.discountRate) {
             recommendations.push({
                 type: 'info',
                 icon: '✓',
-                text: `IRR of ${expectedMetrics.irr.toFixed(2)}% exceeds your discount rate, which is positive but leaves limited margin for error.`
+                text: `La TIR del ${expectedMetrics.irr.toFixed(2)}% excede su tasa de descuento, lo cual es positivo pero deja un margen limitado de error.`
             });
         } else {
             recommendations.push({
                 type: 'danger',
                 icon: '⚠️',
-                text: `IRR of ${expectedMetrics.irr.toFixed(2)}% is below your discount rate of ${data.discountRate}%, suggesting value destruction.`
+                text: `La TIR del ${expectedMetrics.irr.toFixed(2)}% está por debajo de su tasa de descuento del ${data.discountRate}%, sugiriendo destrucción de valor.`
             });
         }
 
@@ -576,7 +596,7 @@ document.getElementById('projectForm').addEventListener('submit', function(e) {
         RecommendationEngine.displayRecommendations(recommendations);
 
         UIUpdater.hideLoading();
-        UIUpdater.showMessage('success', '✅ Analysis completed successfully! Review the metrics and recommendations below.');
+        UIUpdater.showMessage('success', '✅ ¡Análisis completado exitosamente! Revise las métricas y recomendaciones a continuación.');
 
         // Smooth scroll to dashboard
         document.getElementById('dashboard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -596,7 +616,7 @@ function switchTab(tabName) {
 
 // Reset Form
 function resetForm() {
-    if (confirm('Are you sure you want to reset the form? All data will be cleared.')) {
+    if (confirm('¿Está seguro de que desea reiniciar el formulario? Todos los datos se borrarán.')) {
         document.getElementById('projectForm').reset();
         
         // Reset dashboard
@@ -604,14 +624,14 @@ function resetForm() {
         document.getElementById('npv-value').textContent = '$0';
         document.getElementById('payback-value').textContent = '0';
         document.getElementById('irr-value').textContent = '0%';
-        document.getElementById('roi-status').textContent = 'Enter data to calculate';
-        document.getElementById('npv-status').textContent = 'Discounted cash flow';
+        document.getElementById('roi-status').textContent = 'Ingrese datos para calcular';
+        document.getElementById('npv-status').textContent = 'Flujo de caja descontado';
         
         // Reset scenario cards
         ['expected', 'best', 'worst'].forEach(scenario => {
             document.getElementById(`${scenario}-roi`).textContent = '0%';
             document.getElementById(`${scenario}-npv`).textContent = '$0';
-            document.getElementById(`${scenario}-payback`).textContent = '0 months';
+            document.getElementById(`${scenario}-payback`).textContent = '0 meses';
         });
         
         // Clear charts
@@ -620,22 +640,22 @@ function resetForm() {
         });
         
         // Reset recommendations
-        document.getElementById('recommendations').innerHTML = '<p style="color: #718096;">Complete the form and calculate to receive intelligent recommendations based on your business case analysis.</p>';
+        document.getElementById('recommendations').innerHTML = '<p style="color: rgba(255, 255, 255, 0.7);">Complete el formulario y calcule para recibir recomendaciones inteligentes basadas en su análisis de caso de negocio.</p>';
         
-        UIUpdater.showMessage('info', 'Form has been reset. Enter new project data to analyze.');
+        UIUpdater.showMessage('info', 'El formulario ha sido reiniciado. Ingrese nuevos datos del proyecto para analizar.');
     }
 }
 
 // PDF Export Function
 function exportToPDF() {
     if (!projectData) {
-        alert('Please calculate your business case first before exporting.');
+        alert('Por favor calcule su caso de negocio primero antes de exportar.');
         return;
     }
 
     // Check if jsPDF is available
     if (typeof window.jspdf === 'undefined') {
-        alert('PDF export library not loaded. Please check your internet connection and refresh the page.');
+        alert('Biblioteca de exportación PDF no cargada. Por favor verifique su conexión a internet y actualice la página.');
         return;
     }
 
@@ -652,34 +672,34 @@ function exportToPDF() {
 
         // Header
         doc.setFontSize(20);
-        doc.setTextColor(102, 126, 234);
-        doc.text('Business Case Analyzer Pro', margin, yPosition);
+        doc.setTextColor(131, 56, 236);
+        doc.text('Analizador de Casos de Negocio Pro', margin, yPosition);
         yPosition += 10;
 
         doc.setFontSize(10);
         doc.setTextColor(100, 100, 100);
-        doc.text('Financial Analysis Report', margin, yPosition);
+        doc.text('Reporte de Análisis Financiero', margin, yPosition);
         yPosition += 10;
 
         // Project Information
         doc.setFontSize(14);
         doc.setTextColor(0, 0, 0);
-        doc.text('Project Information', margin, yPosition);
+        doc.text('Información del Proyecto', margin, yPosition);
         yPosition += lineHeight;
 
         doc.setFontSize(10);
-        doc.text(`Project Name: ${projectData.projectName}`, margin + 5, yPosition);
+        doc.text(`Nombre del Proyecto: ${projectData.projectName}`, margin + 5, yPosition);
         yPosition += lineHeight;
-        doc.text(`Initial Investment: $${projectData.initialInvestment.toLocaleString('en-US')}`, margin + 5, yPosition);
+        doc.text(`Inversión Inicial: $${projectData.initialInvestment.toLocaleString('es-ES')}`, margin + 5, yPosition);
         yPosition += lineHeight;
-        doc.text(`Project Duration: ${projectData.projectDuration} months`, margin + 5, yPosition);
+        doc.text(`Duración del Proyecto: ${projectData.projectDuration} meses`, margin + 5, yPosition);
         yPosition += lineHeight;
-        doc.text(`Discount Rate: ${projectData.discountRate}%`, margin + 5, yPosition);
+        doc.text(`Tasa de Descuento: ${projectData.discountRate}%`, margin + 5, yPosition);
         yPosition += lineHeight + 5;
 
         // Financial Metrics
         doc.setFontSize(14);
-        doc.text('Key Financial Metrics', margin, yPosition);
+        doc.text('Métricas Financieras Clave', margin, yPosition);
         yPosition += lineHeight;
 
         doc.setFontSize(10);
@@ -688,40 +708,40 @@ function exportToPDF() {
         const paybackValue = document.getElementById('payback-value').textContent;
         const irrValue = document.getElementById('irr-value').textContent;
 
-        doc.text(`ROI (Return on Investment): ${roiValue}`, margin + 5, yPosition);
+        doc.text(`ROI (Retorno de Inversión): ${roiValue}`, margin + 5, yPosition);
         yPosition += lineHeight;
-        doc.text(`NPV (Net Present Value): ${npvValue}`, margin + 5, yPosition);
+        doc.text(`VPN (Valor Presente Neto): ${npvValue}`, margin + 5, yPosition);
         yPosition += lineHeight;
-        doc.text(`Payback Period: ${paybackValue} months`, margin + 5, yPosition);
+        doc.text(`Período de Recuperación: ${paybackValue} meses`, margin + 5, yPosition);
         yPosition += lineHeight;
-        doc.text(`IRR (Internal Rate of Return): ${irrValue}`, margin + 5, yPosition);
+        doc.text(`TIR (Tasa Interna de Retorno): ${irrValue}`, margin + 5, yPosition);
         yPosition += lineHeight + 5;
 
         // Scenario Analysis
         doc.setFontSize(14);
-        doc.text('Scenario Analysis', margin, yPosition);
+        doc.text('Análisis de Escenarios', margin, yPosition);
         yPosition += lineHeight;
 
         doc.setFontSize(10);
-        doc.text('Expected Case:', margin + 5, yPosition);
+        doc.text('Caso Esperado:', margin + 5, yPosition);
         yPosition += lineHeight;
         doc.text(`  ROI: ${document.getElementById('expected-roi').textContent}`, margin + 10, yPosition);
         yPosition += lineHeight;
-        doc.text(`  NPV: ${document.getElementById('expected-npv').textContent}`, margin + 10, yPosition);
+        doc.text(`  VPN: ${document.getElementById('expected-npv').textContent}`, margin + 10, yPosition);
         yPosition += lineHeight;
 
-        doc.text('Best Case:', margin + 5, yPosition);
+        doc.text('Mejor Caso:', margin + 5, yPosition);
         yPosition += lineHeight;
         doc.text(`  ROI: ${document.getElementById('best-roi').textContent}`, margin + 10, yPosition);
         yPosition += lineHeight;
-        doc.text(`  NPV: ${document.getElementById('best-npv').textContent}`, margin + 10, yPosition);
+        doc.text(`  VPN: ${document.getElementById('best-npv').textContent}`, margin + 10, yPosition);
         yPosition += lineHeight;
 
-        doc.text('Worst Case:', margin + 5, yPosition);
+        doc.text('Peor Caso:', margin + 5, yPosition);
         yPosition += lineHeight;
         doc.text(`  ROI: ${document.getElementById('worst-roi').textContent}`, margin + 10, yPosition);
         yPosition += lineHeight;
-        doc.text(`  NPV: ${document.getElementById('worst-npv').textContent}`, margin + 10, yPosition);
+        doc.text(`  VPN: ${document.getElementById('worst-npv').textContent}`, margin + 10, yPosition);
         yPosition += lineHeight + 5;
 
         // Recommendations
@@ -731,7 +751,7 @@ function exportToPDF() {
         }
 
         doc.setFontSize(14);
-        doc.text('Recommendations', margin, yPosition);
+        doc.text('Recomendaciones', margin, yPosition);
         yPosition += lineHeight;
 
         doc.setFontSize(9);
@@ -757,11 +777,11 @@ function exportToPDF() {
         }
 
         // Save PDF
-        const fileName = `Business_Case_${projectData.projectName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+        const fileName = `Caso_Negocio_${projectData.projectName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
         doc.save(fileName);
 
         UIUpdater.hideLoading();
-        UIUpdater.showMessage('success', '📥 PDF report exported successfully!');
+        UIUpdater.showMessage('success', '📥 ¡Reporte PDF exportado exitosamente!');
     }, 500);
 }
 
@@ -783,7 +803,7 @@ formInputs.forEach(input => {
 // Initialize with sample data on page load for demo purposes
 window.addEventListener('load', function() {
     // Set default values
-    document.getElementById('projectName').value = 'Digital Transformation Initiative';
+    document.getElementById('projectName').value = 'Iniciativa de Transformación Digital';
     document.getElementById('initialInvestment').value = '150000';
     document.getElementById('yearlyRevenue').value = '75000';
     document.getElementById('operatingCosts').value = '15000';
@@ -791,6 +811,6 @@ window.addEventListener('load', function() {
     
     // Show welcome message
     setTimeout(() => {
-        UIUpdater.showMessage('info', '👋 Welcome! Enter your project data or click "Calculate Analysis" to see a demo with sample data.');
+        UIUpdater.showMessage('info', '👋 ¡Bienvenido! Ingrese los datos de su proyecto o haga clic en "Calcular Análisis" para ver una demostración con datos de ejemplo.');
     }, 500);
 });
