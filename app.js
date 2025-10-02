@@ -6,6 +6,7 @@
 // Global state
 let currentLanguage = 'en';
 let projectData = null;
+let strategicData = null;
 let charts = {
     cashflow: null,
     roi: null,
@@ -20,6 +21,8 @@ const translations = {
         'header-subtitle': 'Professional Financial Analysis & ROI Calculator',
         
         // Section Titles
+        'section-strategic': 'Strategic Analysis',
+        'strategic-description': 'Start by defining the strategic foundation of your business case. Our AI will analyze the viability and provide insights.',
         'section-dashboard': 'Financial Dashboard',
         'section-project-info': 'Project Information',
         'section-visual-analysis': 'Visual Analysis',
@@ -32,7 +35,13 @@ const translations = {
         'subsection-costs': 'Cost Projections',
         'subsection-scenarios': 'Scenario Analysis',
         
-        // Form Labels
+        // Form Labels - Strategic
+        'label-stratProjectName': 'Project Name',
+        'label-problemOpportunity': 'Problem/Opportunity Identified',
+        'label-proposedSolution': 'Proposed Solution (with or without AI)',
+        'label-successMetrics': 'Success Metrics / ROI',
+        
+        // Form Labels - Financial
         'label-projectName': 'Project Name',
         'label-initialInvestment': 'Initial Investment ($)',
         'label-discountRate': 'Discount Rate (%)',
@@ -45,9 +54,13 @@ const translations = {
         'label-worstCaseMultiplier': 'Worst Case Multiplier',
         
         // Buttons
+        'btn-generate-analysis': 'Generate Analysis',
+        'btn-continue-financial': 'Continue to Financial Projection',
+        'btn-back-step1': '← Back to Strategic Analysis',
         'btn-calculate': 'Calculate Analysis',
         'btn-reset': 'Reset Form',
         'btn-export': 'Export Full Report to PDF',
+        'analysis-title': 'Strategic Analysis Result',
         
         // Tabs
         'tab-cashflow': 'Cash Flow Over Time',
@@ -101,6 +114,8 @@ const translations = {
         'header-subtitle': 'Análisis Financiero Profesional y Calculadora de ROI',
         
         // Section Titles
+        'section-strategic': 'Análisis Estratégico',
+        'strategic-description': 'Comience definiendo la base estratégica de su caso de negocio. Nuestra IA analizará la viabilidad y proporcionará información valiosa.',
         'section-dashboard': 'Panel Financiero',
         'section-project-info': 'Información del Proyecto',
         'section-visual-analysis': 'Análisis Visual',
@@ -113,7 +128,13 @@ const translations = {
         'subsection-costs': 'Proyecciones de Costos',
         'subsection-scenarios': 'Análisis de Escenarios',
         
-        // Form Labels
+        // Form Labels - Strategic
+        'label-stratProjectName': 'Nombre del Proyecto',
+        'label-problemOpportunity': 'Problema/Oportunidad Identificada',
+        'label-proposedSolution': 'Solución Propuesta (con o sin IA)',
+        'label-successMetrics': 'Métricas de Éxito / ROI',
+        
+        // Form Labels - Financial
         'label-projectName': 'Nombre del Proyecto',
         'label-initialInvestment': 'Inversión Inicial ($)',
         'label-discountRate': 'Tasa de Descuento (%)',
@@ -126,9 +147,13 @@ const translations = {
         'label-worstCaseMultiplier': 'Multiplicador Peor Caso',
         
         // Buttons
+        'btn-generate-analysis': 'Generar Análisis',
+        'btn-continue-financial': 'Continuar a la Proyección Financiera',
+        'btn-back-step1': '← Volver al Análisis Estratégico',
         'btn-calculate': 'Calcular Análisis',
         'btn-reset': 'Reiniciar Formulario',
         'btn-export': 'Exportar Reporte Completo a PDF',
+        'analysis-title': 'Resultado del Análisis Estratégico',
         
         // Tabs
         'tab-cashflow': 'Flujo de Caja en el Tiempo',
@@ -262,6 +287,12 @@ function switchLanguage(lang) {
         recommendations.children[0].tagName === 'P') {
         recommendations.children[0].textContent = t['default-recommendations'];
         recommendations.children[0].style.color = 'var(--text-muted)';
+    }
+    
+    // Update strategic description
+    const strategicDesc = document.getElementById('strategic-description');
+    if (strategicDesc) {
+        strategicDesc.textContent = t['strategic-description'];
     }
     
     // Re-render charts if they exist with new labels
@@ -929,14 +960,36 @@ function exportToPDF() {
 
         // Header
         doc.setFontSize(20);
-        doc.setTextColor(131, 56, 236);
+        doc.setTextColor(37, 99, 235);
         doc.text('Analizador de Casos de Negocio Pro', margin, yPosition);
         yPosition += 10;
 
         doc.setFontSize(10);
         doc.setTextColor(100, 100, 100);
-        doc.text('Reporte de Análisis Financiero', margin, yPosition);
+        doc.text('Reporte Completo de Análisis', margin, yPosition);
         yPosition += 10;
+
+        // Strategic Analysis Section (if available)
+        if (strategicData) {
+            doc.setFontSize(14);
+            doc.setTextColor(0, 0, 0);
+            doc.text('Análisis Estratégico', margin, yPosition);
+            yPosition += lineHeight;
+
+            doc.setFontSize(10);
+            doc.text(`Proyecto: ${strategicData.projectName}`, margin + 5, yPosition);
+            yPosition += lineHeight;
+            
+            const problemText = doc.splitTextToSize(`Problema/Oportunidad: ${strategicData.problem}`, pageWidth - margin * 2 - 5);
+            doc.text(problemText, margin + 5, yPosition);
+            yPosition += problemText.length * lineHeight + 3;
+            
+            const solutionText = doc.splitTextToSize(`Solución Propuesta: ${strategicData.solution}`, pageWidth - margin * 2 - 5);
+            doc.text(solutionText, margin + 5, yPosition);
+            yPosition += solutionText.length * lineHeight + 3;
+            
+            yPosition += 5;
+        }
 
         // Project Information
         doc.setFontSize(14);
@@ -1057,9 +1110,129 @@ formInputs.forEach(input => {
     });
 });
 
+// Strategic Form Handler
+document.getElementById('strategicForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    handleStrategicSubmit();
+});
+
+function handleStrategicSubmit() {
+    // Collect strategic form data
+    strategicData = {
+        projectName: document.getElementById('stratProjectName').value,
+        problem: document.getElementById('problemOpportunity').value,
+        solution: document.getElementById('proposedSolution').value,
+        metrics: document.getElementById('successMetrics').value
+    };
+    
+    UIUpdater.showLoading();
+    
+    // Simulate LLM analysis (in production, this would call an actual LLM API)
+    setTimeout(() => {
+        const analysis = generateMockLLMAnalysis(strategicData);
+        displayStrategicAnalysis(analysis);
+        UIUpdater.hideLoading();
+    }, 1500);
+}
+
+function generateMockLLMAnalysis(data) {
+    // Mock LLM analysis based on inputs
+    const viabilityScore = Math.floor(Math.random() * 20) + 75; // 75-95
+    
+    const analysis = {
+        viability: viabilityScore,
+        strengths: [
+            currentLanguage === 'en' ? 'Clear problem definition and market need' : 'Definición clara del problema y necesidad del mercado',
+            currentLanguage === 'en' ? 'Well-structured solution approach' : 'Enfoque de solución bien estructurado',
+            currentLanguage === 'en' ? 'Measurable success metrics defined' : 'Métricas de éxito medibles definidas'
+        ],
+        weaknesses: [
+            currentLanguage === 'en' ? 'Market competition analysis needed' : 'Se necesita análisis de competencia del mercado',
+            currentLanguage === 'en' ? 'Resource requirements should be detailed further' : 'Los requisitos de recursos deben detallarse más'
+        ],
+        risks: [
+            currentLanguage === 'en' ? 'Implementation timeline may be challenging' : 'El cronograma de implementación puede ser desafiante',
+            currentLanguage === 'en' ? 'Stakeholder buy-in is critical for success' : 'La aceptación de los interesados es crítica para el éxito'
+        ],
+        recommendation: viabilityScore >= 80 
+            ? (currentLanguage === 'en' ? 'Highly recommended to proceed with detailed financial analysis' : 'Altamente recomendado proceder con análisis financiero detallado')
+            : (currentLanguage === 'en' ? 'Recommended to proceed with caution and detailed planning' : 'Recomendado proceder con precaución y planificación detallada')
+    };
+    
+    return analysis;
+}
+
+function displayStrategicAnalysis(analysis) {
+    const container = document.getElementById('analysisContent');
+    const t = translations[currentLanguage];
+    
+    const html = `
+        <div style="margin-bottom: 1.5rem;">
+            <h4>${currentLanguage === 'en' ? 'Viability Assessment' : 'Evaluación de Viabilidad'}</h4>
+            <div class="viability-score">${currentLanguage === 'en' ? 'Viability' : 'Viabilidad'}: ${analysis.viability}/100</div>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <h4>✓ ${currentLanguage === 'en' ? 'Strengths' : 'Fortalezas'}</h4>
+            <ul>
+                ${analysis.strengths.map(s => `<li>${s}</li>`).join('')}
+            </ul>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <h4>⚠️ ${currentLanguage === 'en' ? 'Areas for Improvement' : 'Áreas de Mejora'}</h4>
+            <ul>
+                ${analysis.weaknesses.map(w => `<li style="color: var(--warning-color);">${w}</li>`).join('')}
+            </ul>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <h4>🎯 ${currentLanguage === 'en' ? 'Key Risks' : 'Riesgos Clave'}</h4>
+            <ul>
+                ${analysis.risks.map(r => `<li style="color: var(--danger-color);">${r}</li>`).join('')}
+            </ul>
+        </div>
+        
+        <div style="padding: 1rem; background: var(--gray-50); border-radius: var(--border-radius); border-left: 4px solid var(--success-color);">
+            <strong>${currentLanguage === 'en' ? 'Recommendation' : 'Recomendación'}:</strong>
+            <p style="margin-top: 0.5rem;">${analysis.recommendation}</p>
+        </div>
+    `;
+    
+    container.innerHTML = html;
+    document.getElementById('strategicAnalysisResult').classList.remove('hidden');
+    
+    // Scroll to result
+    document.getElementById('strategicAnalysisResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Step Navigation Functions
+function goToStep2() {
+    // Hide step 1, show step 2
+    document.getElementById('step1-strategic-module').style.display = 'none';
+    document.getElementById('step2-financial-module').style.display = 'block';
+    
+    // Pre-fill project name from strategic analysis if available
+    if (strategicData && strategicData.projectName) {
+        document.getElementById('projectName').value = strategicData.projectName;
+    }
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goToStep1() {
+    // Hide step 2, show step 1
+    document.getElementById('step2-financial-module').style.display = 'none';
+    document.getElementById('step1-strategic-module').style.display = 'block';
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // Initialize with sample data on page load for demo purposes
 window.addEventListener('load', function() {
-    // Set default values
+    // Set default values for financial calculator (step 2)
     document.getElementById('projectName').value = 'Iniciativa de Transformación Digital';
     document.getElementById('initialInvestment').value = '150000';
     document.getElementById('yearlyRevenue').value = '75000';
@@ -1068,6 +1241,6 @@ window.addEventListener('load', function() {
     
     // Show welcome message
     setTimeout(() => {
-        UIUpdater.showMessage('info', '👋 ¡Bienvenido! Ingrese los datos de su proyecto o haga clic en "Calcular Análisis" para ver una demostración con datos de ejemplo.');
+        UIUpdater.showMessage('info', '👋 ¡Bienvenido! Comience con el análisis estratégico de su proyecto.');
     }, 500);
 });

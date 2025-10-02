@@ -698,6 +698,120 @@ button:disabled {
     }
 }
 
+/* Strategic Module Styles */
+textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 0.9375rem;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text-primary);
+    background: var(--white);
+    transition: var(--transition);
+    resize: vertical;
+    line-height: 1.6;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+textarea::placeholder {
+    color: var(--text-light);
+}
+
+.strategic-result {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: var(--gray-50);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+}
+
+.strategic-result h3 {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.analysis-content {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.analysis-content h4 {
+    color: var(--text-primary);
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.analysis-content p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.analysis-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.analysis-content ul li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--text-secondary);
+}
+
+.analysis-content ul li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--success-color);
+    font-weight: bold;
+}
+
+.viability-score {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    font-size: 1.125rem;
+    margin: 0.5rem 0;
+}
+
+/* Tooltip Styles */
+.tooltip-icon {
+    display: inline-block;
+    cursor: help;
+    font-style: normal;
+    font-size: 0.875rem;
+    opacity: 0.7;
+    margin-left: 0.25rem;
+    transition: var(--transition);
+}
+
+.tooltip-icon:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Hidden utility class */
+.hidden {
+    display: none !important;
+}
+
 @media (max-width: 480px) {
     .header-brand h1 {
         font-size: 1.25rem;
@@ -713,5 +827,9 @@ button:disabled {
     
     button {
         width: 100%;
+    }
+    
+    textarea {
+        font-size: 0.875rem;
     }
 }
