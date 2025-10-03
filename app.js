@@ -106,7 +106,10 @@ const translations = {
         
         // Units
         'unit-months': 'months',
-        'unit-years': 'years'
+        'unit-years': 'years',
+        
+        // Progress Indicator
+        'progress-title': 'Business Case Quality Score'
     },
     es: {
         // Header
@@ -199,7 +202,10 @@ const translations = {
         
         // Units
         'unit-months': 'meses',
-        'unit-years': 'años'
+        'unit-years': 'años',
+        
+        // Progress Indicator
+        'progress-title': 'Puntuación de Calidad del Business Case'
     }
 };
 
@@ -294,6 +300,15 @@ function switchLanguage(lang) {
     if (strategicDesc) {
         strategicDesc.textContent = t['strategic-description'];
     }
+    
+    // Update progress title
+    const progressTitle = document.getElementById('progress-title');
+    if (progressTitle) {
+        progressTitle.textContent = t['progress-title'];
+    }
+    
+    // Re-render progress checklist with new language
+    updateOverallProgress();
     
     // Re-render charts if they exist with new labels
     if (charts.cashflow || charts.roi || charts.scenarios) {
@@ -1230,6 +1245,590 @@ function goToStep1() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// ====================================
+// Contextual Guide System
+// ====================================
+
+const guideContent = {
+    en: {
+        projectName: {
+            title: "Project Name - Best Practices",
+            content: `
+                <h4>🎯 Purpose</h4>
+                <p>A clear, concise name that immediately conveys the project's focus and value.</p>
+                
+                <h4>✅ What to Include</h4>
+                <ul>
+                    <li><strong>Action-oriented</strong>: Use verbs that show initiative (Transform, Implement, Optimize)</li>
+                    <li><strong>Specific scope</strong>: Indicate the area or function affected</li>
+                    <li><strong>Keep it professional</strong>: 3-7 words maximum</li>
+                </ul>
+                
+                <h4>💡 Examples</h4>
+                <div class="example">
+                    <strong>Good:</strong> "AI-Powered Customer Support Automation"<br>
+                    <strong>Why:</strong> Clear action (automation), technology (AI), and area (customer support)
+                </div>
+                <div class="example">
+                    <strong>Good:</strong> "Enterprise Cloud Migration Initiative"<br>
+                    <strong>Why:</strong> Specific scope (enterprise), clear action (migration), and target (cloud)
+                </div>
+            `
+        },
+        problemOpportunity: {
+            title: "Problem/Opportunity Identification - Framework",
+            content: `
+                <h4>🎯 Purpose</h4>
+                <p>Define the business pain point or opportunity with quantifiable impact. This is the foundation of your business case.</p>
+                
+                <h4>✅ Required Elements</h4>
+                <ul>
+                    <li><strong>Pain Description</strong>: 2-3 clear sentences about the current problem</li>
+                    <li><strong>Who is affected</strong>: Identify stakeholders and teams impacted</li>
+                    <li><strong>Quantifiable Impact</strong>: Translate to business metrics (cost, time, risk)</li>
+                    <li><strong>Business consequences</strong>: What happens if we don't act?</li>
+                </ul>
+                
+                <h4>💡 Example Structure</h4>
+                <div class="example">
+                    "Currently, the support team invests 10 hours weekly on manual ticket classification, generating an average 4-hour delay in first response to customers. This delay contributes to a 15% customer dissatisfaction rate and represents an operational cost of 40 hours-man per month, equivalent to $8,000 in labor costs."
+                </div>
+                
+                <h4>📊 Tips</h4>
+                <ul>
+                    <li>Use specific numbers and percentages</li>
+                    <li>Focus on business impact, not just technical issues</li>
+                    <li>Connect to strategic company goals</li>
+                </ul>
+            `
+        },
+        proposedSolution: {
+            title: "Proposed Solution - Strategic Approach",
+            content: `
+                <h4>🎯 Purpose</h4>
+                <p>Describe your solution in terms of business capabilities, not just technology. Focus on what it enables, not how it works.</p>
+                
+                <h4>✅ Required Elements</h4>
+                <ul>
+                    <li><strong>Solution Concept</strong>: Describe in terms of capability (what it does)</li>
+                    <li><strong>Key Features</strong>: 3-5 main capabilities that address the problem</li>
+                    <li><strong>Clear Scope</strong>: Define what WILL be done in Phase 1</li>
+                    <li><strong>Out of Scope</strong>: Explicitly state what WON'T be done initially</li>
+                </ul>
+                
+                <h4>💡 Example Structure</h4>
+                <div class="example">
+                    "Implement an AI system that functions as an intelligent 'triage agent', capable of reading, understanding, and classifying each support ticket instantly. <strong>Phase 1 features:</strong> (1) Automatic categorization by department, (2) Priority assessment based on urgency keywords, (3) Integration with existing ticketing system. <strong>Phase 1 will NOT:</strong> Generate automatic responses to customers or handle ticket resolution."
+                </div>
+                
+                <h4>📊 Best Practices</h4>
+                <ul>
+                    <li>Avoid excessive technical jargon</li>
+                    <li>Focus on business outcomes</li>
+                    <li>Be realistic about scope</li>
+                    <li>Consider MVP (Minimum Viable Product) approach</li>
+                </ul>
+            `
+        },
+        successMetrics: {
+            title: "Success Metrics / ROI - Measurement Framework",
+            content: `
+                <h4>🎯 Purpose</h4>
+                <p>Define clear, measurable outcomes that prove project success. These metrics will be used to track progress and demonstrate ROI.</p>
+                
+                <h4>✅ Required Elements</h4>
+                <ul>
+                    <li><strong>Primary Objective</strong>: One main measurable result (most important)</li>
+                    <li><strong>Target & Timeline</strong>: Specific goal with timeframe</li>
+                    <li><strong>Secondary Results</strong>: 2-3 additional expected benefits</li>
+                    <li><strong>Required Resources</strong>: What you need to start</li>
+                </ul>
+                
+                <h4>💡 Example Structure</h4>
+                <div class="example">
+                    <strong>Primary Objective:</strong> Reduce manual ticket classification time by 90% in the first quarter (from 10 hours/week to 1 hour/week).<br><br>
+                    <strong>Secondary Outcomes:</strong><br>
+                    • Decrease first response time by 50% (from 4 hours to 2 hours)<br>
+                    • Improve customer satisfaction by 5 points (from 85% to 90%)<br>
+                    • Free up 36 hours/month for high-value support activities<br><br>
+                    <strong>Resources Needed:</strong><br>
+                    • Access to historical ticket data (last 6 months)<br>
+                    • 1 product specialist assigned 20% time<br>
+                    • API access to current ticketing system
+                </div>
+                
+                <h4>📊 SMART Criteria</h4>
+                <ul>
+                    <li><strong>S</strong>pecific: Clear and well-defined</li>
+                    <li><strong>M</strong>easurable: Quantifiable outcomes</li>
+                    <li><strong>A</strong>chievable: Realistic given constraints</li>
+                    <li><strong>R</strong>elevant: Aligned with business goals</li>
+                    <li><strong>T</strong>ime-bound: Clear deadline or timeframe</li>
+                </ul>
+            `
+        }
+    },
+    es: {
+        projectName: {
+            title: "Nombre del Proyecto - Mejores Prácticas",
+            content: `
+                <h4>🎯 Propósito</h4>
+                <p>Un nombre claro y conciso que transmita inmediatamente el enfoque y valor del proyecto.</p>
+                
+                <h4>✅ Qué Incluir</h4>
+                <ul>
+                    <li><strong>Orientado a la acción</strong>: Use verbos que muestren iniciativa (Transformar, Implementar, Optimizar)</li>
+                    <li><strong>Alcance específico</strong>: Indique el área o función afectada</li>
+                    <li><strong>Manténgalo profesional</strong>: Máximo 3-7 palabras</li>
+                </ul>
+                
+                <h4>💡 Ejemplos</h4>
+                <div class="example">
+                    <strong>Bueno:</strong> "Automatización de Soporte al Cliente con IA"<br>
+                    <strong>Por qué:</strong> Acción clara (automatización), tecnología (IA) y área (soporte al cliente)
+                </div>
+                <div class="example">
+                    <strong>Bueno:</strong> "Iniciativa de Migración a la Nube Empresarial"<br>
+                    <strong>Por qué:</strong> Alcance específico (empresarial), acción clara (migración) y objetivo (nube)
+                </div>
+            `
+        },
+        problemOpportunity: {
+            title: "Identificación de Problema/Oportunidad - Marco de Trabajo",
+            content: `
+                <h4>🎯 Propósito</h4>
+                <p>Definir el punto de dolor del negocio u oportunidad con impacto cuantificable. Esta es la base de su caso de negocio.</p>
+                
+                <h4>✅ Elementos Requeridos</h4>
+                <ul>
+                    <li><strong>Descripción del Dolor</strong>: 2-3 frases claras sobre el problema actual</li>
+                    <li><strong>A quién afecta</strong>: Identifique stakeholders y equipos impactados</li>
+                    <li><strong>Impacto Cuantificable</strong>: Traducir a métricas de negocio (costo, tiempo, riesgo)</li>
+                    <li><strong>Consecuencias empresariales</strong>: ¿Qué sucede si no actuamos?</li>
+                </ul>
+                
+                <h4>💡 Estructura de Ejemplo</h4>
+                <div class="example">
+                    "Actualmente, el equipo de soporte invierte 10 horas semanales en la clasificación manual de tickets, generando un retraso promedio de 4 horas en la primera respuesta a los clientes. Este retraso contribuye a una tasa de insatisfacción del cliente del 15% y representa un costo operativo de 40 horas-hombre al mes, equivalente a $8,000 en costos laborales."
+                </div>
+                
+                <h4>📊 Consejos</h4>
+                <ul>
+                    <li>Use números y porcentajes específicos</li>
+                    <li>Enfóquese en el impacto empresarial, no solo en problemas técnicos</li>
+                    <li>Conéctelo con objetivos estratégicos de la empresa</li>
+                </ul>
+            `
+        },
+        proposedSolution: {
+            title: "Solución Propuesta - Enfoque Estratégico",
+            content: `
+                <h4>🎯 Propósito</h4>
+                <p>Describa su solución en términos de capacidades empresariales, no solo tecnología. Enfóquese en lo que permite, no en cómo funciona.</p>
+                
+                <h4>✅ Elementos Requeridos</h4>
+                <ul>
+                    <li><strong>Concepto de la Solución</strong>: Describir en términos de capacidad (qué hace)</li>
+                    <li><strong>Características Clave</strong>: 3-5 capacidades principales que abordan el problema</li>
+                    <li><strong>Alcance Claro</strong>: Definir qué SE HARÁ en la Fase 1</li>
+                    <li><strong>Fuera del Alcance</strong>: Indicar explícitamente qué NO se hará inicialmente</li>
+                </ul>
+                
+                <h4>💡 Estructura de Ejemplo</h4>
+                <div class="example">
+                    "Implementar un sistema de IA que funcione como un 'agente de triaje' inteligente, capaz de leer, entender y clasificar cada ticket de soporte al instante. <strong>Características Fase 1:</strong> (1) Categorización automática por departamento, (2) Evaluación de prioridad basada en palabras clave de urgencia, (3) Integración con sistema de tickets existente. <strong>Fase 1 NO incluirá:</strong> Generación de respuestas automáticas a clientes ni resolución de tickets."
+                </div>
+                
+                <h4>📊 Mejores Prácticas</h4>
+                <ul>
+                    <li>Evite jerga técnica excesiva</li>
+                    <li>Enfóquese en resultados empresariales</li>
+                    <li>Sea realista sobre el alcance</li>
+                    <li>Considere el enfoque MVP (Producto Mínimo Viable)</li>
+                </ul>
+            `
+        },
+        successMetrics: {
+            title: "Métricas de Éxito / ROI - Marco de Medición",
+            content: `
+                <h4>🎯 Propósito</h4>
+                <p>Definir resultados claros y medibles que demuestren el éxito del proyecto. Estas métricas se usarán para rastrear progreso y demostrar ROI.</p>
+                
+                <h4>✅ Elementos Requeridos</h4>
+                <ul>
+                    <li><strong>Objetivo Principal</strong>: Un resultado medible principal (el más importante)</li>
+                    <li><strong>Meta y Cronograma</strong>: Objetivo específico con marco temporal</li>
+                    <li><strong>Resultados Secundarios</strong>: 2-3 beneficios adicionales esperados</li>
+                    <li><strong>Recursos Necesarios</strong>: Lo que necesita para comenzar</li>
+                </ul>
+                
+                <h4>💡 Estructura de Ejemplo</h4>
+                <div class="example">
+                    <strong>Objetivo Principal:</strong> Reducir el tiempo de clasificación manual de tickets en un 90% en el primer trimestre (de 10 horas/semana a 1 hora/semana).<br><br>
+                    <strong>Resultados Secundarios:</strong><br>
+                    • Disminuir el tiempo de primera respuesta en un 50% (de 4 horas a 2 horas)<br>
+                    • Mejorar la satisfacción del cliente en 5 puntos (del 85% al 90%)<br>
+                    • Liberar 36 horas/mes para actividades de soporte de alto valor<br><br>
+                    <strong>Recursos Necesarios:</strong><br>
+                    • Acceso a datos históricos de tickets (últimos 6 meses)<br>
+                    • 1 especialista de producto asignado 20% del tiempo<br>
+                    • Acceso API al sistema de tickets actual
+                </div>
+                
+                <h4>📊 Criterios SMART</h4>
+                <ul>
+                    <li><strong>E</strong>specífico: Claro y bien definido</li>
+                    <li><strong>M</strong>edible: Resultados cuantificables</li>
+                    <li><strong>A</strong>lcanzable: Realista dadas las restricciones</li>
+                    <li><strong>R</strong>elevante: Alineado con objetivos empresariales</li>
+                    <li><strong>T</strong>emporal: Plazo o marco temporal claro</li>
+                </ul>
+            `
+        }
+    }
+};
+
+// Modal Functions
+function showGuideModal(fieldType) {
+    const modal = document.getElementById('guideModal');
+    const title = document.getElementById('modal-title');
+    const body = document.getElementById('modal-body');
+    
+    const guide = guideContent[currentLanguage][fieldType];
+    if (guide) {
+        title.textContent = guide.title;
+        body.innerHTML = guide.content;
+        modal.classList.remove('hidden');
+        
+        // Prevent body scroll when modal is open
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeGuideModal() {
+    const modal = document.getElementById('guideModal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('guideModal');
+    if (e.target === modal) {
+        closeGuideModal();
+    }
+});
+
+// Close modal with ESC key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeGuideModal();
+    }
+});
+
+// ====================================
+// Field Quality Assessment System
+// ====================================
+
+const qualityAssessment = {
+    assessField(fieldId, value) {
+        const assessments = {
+            stratProjectName: this.assessProjectName(value),
+            problemOpportunity: this.assessProblemOpportunity(value),
+            proposedSolution: this.assessProposedSolution(value),
+            successMetrics: this.assessSuccessMetrics(value)
+        };
+        
+        return assessments[fieldId] || { score: 0, feedback: '', level: 'poor' };
+    },
+    
+    assessProjectName(value) {
+        const words = value.trim().split(/\s+/);
+        const length = value.trim().length;
+        let score = 0;
+        let feedback = '';
+        
+        if (length === 0) {
+            return { score: 0, feedback: '', level: 'poor' };
+        }
+        
+        // Check length (3-7 words ideal)
+        if (words.length >= 3 && words.length <= 7) {
+            score += 40;
+        } else if (words.length < 3) {
+            feedback = currentLanguage === 'es' ? 
+                '💡 Sugerencia: Agregue más detalles (3-7 palabras ideal)' : 
+                '💡 Suggestion: Add more detail (3-7 words ideal)';
+        } else {
+            feedback = currentLanguage === 'es' ?
+                '💡 Sugerencia: Sea más conciso (3-7 palabras ideal)' :
+                '💡 Suggestion: Be more concise (3-7 words ideal)';
+        }
+        
+        // Check for action words
+        const actionWords = ['implement', 'transform', 'optimize', 'develop', 'create', 'build', 'enhance', 
+                            'implementar', 'transformar', 'optimizar', 'desarrollar', 'crear', 'construir', 'mejorar'];
+        if (actionWords.some(word => value.toLowerCase().includes(word))) {
+            score += 30;
+        }
+        
+        // Check capitalization
+        if (words.every(word => word[0] === word[0].toUpperCase())) {
+            score += 30;
+        }
+        
+        if (score >= 70 && feedback === '') {
+            feedback = currentLanguage === 'es' ?
+                '✓ Excelente: Nombre claro y profesional' :
+                '✓ Excellent: Clear and professional name';
+        }
+        
+        return {
+            score,
+            feedback,
+            level: score >= 70 ? 'good' : score >= 40 ? 'warning' : 'poor'
+        };
+    },
+    
+    assessProblemOpportunity(value) {
+        const length = value.trim().length;
+        const sentences = value.split(/[.!?]+/).filter(s => s.trim().length > 0);
+        let score = 0;
+        let feedback = '';
+        
+        if (length === 0) {
+            return { score: 0, feedback: '', level: 'poor' };
+        }
+        
+        // Check minimum length
+        if (length >= 150) score += 30;
+        else feedback = currentLanguage === 'es' ?
+            '💡 Agregue más detalles sobre el problema (mínimo 150 caracteres)' :
+            '💡 Add more detail about the problem (minimum 150 characters)';
+        
+        // Check for multiple sentences
+        if (sentences.length >= 2) score += 20;
+        
+        // Check for quantifiable data (numbers or percentages)
+        if (/\d+/.test(value)) score += 25;
+        else if (feedback === '') feedback = currentLanguage === 'es' ?
+            '💡 Incluya datos cuantificables (números, porcentajes, costos)' :
+            '💡 Include quantifiable data (numbers, percentages, costs)';
+        
+        // Check for business impact keywords
+        const impactWords = ['cost', 'time', 'efficiency', 'revenue', 'customer', 'risk', 'hours', 'dollars',
+                            'costo', 'tiempo', 'eficiencia', 'ingresos', 'cliente', 'riesgo', 'horas', 'dólares'];
+        if (impactWords.some(word => value.toLowerCase().includes(word))) {
+            score += 25;
+        }
+        
+        if (score >= 70 && feedback === '') {
+            feedback = currentLanguage === 'es' ?
+                '✓ Excelente: Problema bien definido con impacto cuantificable' :
+                '✓ Excellent: Well-defined problem with quantifiable impact';
+        }
+        
+        return {
+            score,
+            feedback,
+            level: score >= 70 ? 'good' : score >= 40 ? 'warning' : 'poor'
+        };
+    },
+    
+    assessProposedSolution(value) {
+        const length = value.trim().length;
+        const sentences = value.split(/[.!?]+/).filter(s => s.trim().length > 0);
+        let score = 0;
+        let feedback = '';
+        
+        if (length === 0) {
+            return { score: 0, feedback: '', level: 'poor' };
+        }
+        
+        // Check minimum length
+        if (length >= 150) score += 30;
+        else feedback = currentLanguage === 'es' ?
+            '💡 Describa la solución con más detalle (mínimo 150 caracteres)' :
+            '💡 Describe the solution in more detail (minimum 150 characters)';
+        
+        // Check for multiple sentences
+        if (sentences.length >= 2) score += 20;
+        
+        // Check for scope definition
+        const scopeWords = ['phase', 'scope', 'will', 'include', 'feature', 
+                           'fase', 'alcance', 'incluir', 'característica'];
+        if (scopeWords.some(word => value.toLowerCase().includes(word))) {
+            score += 25;
+        } else if (feedback === '') {
+            feedback = currentLanguage === 'es' ?
+                '💡 Defina el alcance de la Fase 1 claramente' :
+                '💡 Define Phase 1 scope clearly';
+        }
+        
+        // Check for capability focus
+        const capabilityWords = ['capability', 'enable', 'allow', 'provide', 'automate',
+                                'capacidad', 'permitir', 'proporcionar', 'automatizar'];
+        if (capabilityWords.some(word => value.toLowerCase().includes(word))) {
+            score += 25;
+        }
+        
+        if (score >= 70 && feedback === '') {
+            feedback = currentLanguage === 'es' ?
+                '✓ Excelente: Solución bien estructurada con alcance claro' :
+                '✓ Excellent: Well-structured solution with clear scope';
+        }
+        
+        return {
+            score,
+            feedback,
+            level: score >= 70 ? 'good' : score >= 40 ? 'warning' : 'poor'
+        };
+    },
+    
+    assessSuccessMetrics(value) {
+        const length = value.trim().length;
+        let score = 0;
+        let feedback = '';
+        
+        if (length === 0) {
+            return { score: 0, feedback: '', level: 'poor' };
+        }
+        
+        // Check minimum length
+        if (length >= 100) score += 25;
+        else feedback = currentLanguage === 'es' ?
+            '💡 Proporcione más detalles sobre las métricas (mínimo 100 caracteres)' :
+            '💡 Provide more detail about metrics (minimum 100 characters)';
+        
+        // Check for numbers and percentages
+        if (/\d+/.test(value)) score += 25;
+        else if (feedback === '') feedback = currentLanguage === 'es' ?
+            '💡 Incluya objetivos cuantificables con números específicos' :
+            '💡 Include quantifiable goals with specific numbers';
+        
+        // Check for timeframe
+        const timeWords = ['quarter', 'month', 'week', 'year', 'day',
+                          'trimestre', 'mes', 'semana', 'año', 'día'];
+        if (timeWords.some(word => value.toLowerCase().includes(word))) {
+            score += 25;
+        } else if (feedback === '') {
+            feedback = currentLanguage === 'es' ?
+                '💡 Especifique plazos para los objetivos' :
+                '💡 Specify timeframes for objectives';
+        }
+        
+        // Check for metric keywords
+        const metricWords = ['reduce', 'increase', 'improve', 'achieve', 'target', 'goal',
+                            'reducir', 'aumentar', 'mejorar', 'lograr', 'objetivo', 'meta'];
+        if (metricWords.some(word => value.toLowerCase().includes(word))) {
+            score += 25;
+        }
+        
+        if (score >= 75 && feedback === '') {
+            feedback = currentLanguage === 'es' ?
+                '✓ Excelente: Métricas SMART bien definidas' :
+                '✓ Excellent: Well-defined SMART metrics';
+        }
+        
+        return {
+            score,
+            feedback,
+            level: score >= 75 ? 'good' : score >= 50 ? 'warning' : 'poor'
+        };
+    }
+};
+
+// Update field quality indicators
+function updateFieldQuality(fieldId, value) {
+    const assessment = qualityAssessment.assessField(fieldId, value);
+    const qualityDiv = document.getElementById(`quality-${fieldId}`);
+    
+    if (qualityDiv && assessment.feedback) {
+        qualityDiv.textContent = assessment.feedback;
+        qualityDiv.className = `field-quality show ${assessment.level}`;
+    } else if (qualityDiv) {
+        qualityDiv.className = 'field-quality';
+    }
+    
+    // Update overall progress
+    updateOverallProgress();
+}
+
+// Update overall progress and checklist
+function updateOverallProgress() {
+    const fields = ['stratProjectName', 'problemOpportunity', 'proposedSolution', 'successMetrics'];
+    let totalScore = 0;
+    let maxScore = 0;
+    const checklist = [];
+    
+    fields.forEach(fieldId => {
+        const element = document.getElementById(fieldId);
+        const value = element ? element.value : '';
+        const assessment = qualityAssessment.assessField(fieldId, value);
+        
+        totalScore += assessment.score;
+        maxScore += 100;
+        
+        const labels = {
+            en: {
+                stratProjectName: 'Clear and professional project name',
+                problemOpportunity: 'Problem defined with quantifiable impact',
+                proposedSolution: 'Solution structured with clear scope',
+                successMetrics: 'SMART metrics with timeframes'
+            },
+            es: {
+                stratProjectName: 'Nombre de proyecto claro y profesional',
+                problemOpportunity: 'Problema definido con impacto cuantificable',
+                proposedSolution: 'Solución estructurada con alcance claro',
+                successMetrics: 'Métricas SMART con plazos definidos'
+            }
+        };
+        
+        checklist.push({
+            label: labels[currentLanguage][fieldId],
+            completed: assessment.score >= 70
+        });
+    });
+    
+    const overallScore = Math.round((totalScore / maxScore) * 100);
+    
+    // Update score display
+    const scoreElement = document.getElementById('overall-score');
+    if (scoreElement) {
+        scoreElement.textContent = `${overallScore}/100`;
+    }
+    
+    // Update progress bar
+    const progressFill = document.getElementById('progress-fill');
+    if (progressFill) {
+        progressFill.style.width = `${overallScore}%`;
+    }
+    
+    // Update checklist
+    const checklistDiv = document.getElementById('progress-checklist');
+    if (checklistDiv) {
+        checklistDiv.innerHTML = checklist.map(item => `
+            <div class="checklist-item ${item.completed ? 'completed' : ''}">
+                <span class="check-icon">${item.completed ? '✓' : '○'}</span>
+                <span>${item.label}</span>
+            </div>
+        `).join('');
+    }
+}
+
+// Add event listeners to strategic form fields
+['stratProjectName', 'problemOpportunity', 'proposedSolution', 'successMetrics'].forEach(fieldId => {
+    const element = document.getElementById(fieldId);
+    if (element) {
+        element.addEventListener('input', function() {
+            updateFieldQuality(fieldId, this.value);
+        });
+        
+        // Trigger initial assessment
+        setTimeout(() => updateFieldQuality(fieldId, element.value), 100);
+    }
+});
+
 // Initialize with sample data on page load for demo purposes
 window.addEventListener('load', function() {
     // Set default values for financial calculator (step 2)
@@ -1238,6 +1837,9 @@ window.addEventListener('load', function() {
     document.getElementById('yearlyRevenue').value = '75000';
     document.getElementById('operatingCosts').value = '15000';
     document.getElementById('maintenanceCosts').value = '5000';
+    
+    // Initialize progress indicator
+    updateOverallProgress();
     
     // Show welcome message
     setTimeout(() => {

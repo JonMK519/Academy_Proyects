@@ -807,6 +807,218 @@ textarea::placeholder {
     transform: scale(1.1);
 }
 
+/* Help Icon Styles */
+.help-icon {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    opacity: 0.7;
+    transition: var(--transition);
+    vertical-align: middle;
+}
+
+.help-icon:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    max-width: 700px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-xl);
+    animation: modalSlideIn 0.3s ease-out;
+    position: relative;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    line-height: 1;
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    padding-right: 2rem;
+}
+
+.modal-body {
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.modal-body h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.modal-body ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.modal-body li {
+    margin-bottom: 0.5rem;
+}
+
+.modal-body .example {
+    background: var(--gray-50);
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.modal-body strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Field Quality Indicator */
+.field-quality {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    display: none;
+}
+
+.field-quality.show {
+    display: block;
+}
+
+.field-quality.good {
+    background: rgba(5, 150, 105, 0.1);
+    color: var(--success-color);
+    border: 1px solid rgba(5, 150, 105, 0.2);
+}
+
+.field-quality.warning {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--warning-color);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.field-quality.poor {
+    background: rgba(220, 38, 38, 0.1);
+    color: var(--danger-color);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+/* Progress Indicator */
+.progress-indicator {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--gray-50);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.progress-header span:first-child {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.progress-score {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: var(--gray-200);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+    transition: width 0.5s ease;
+    border-radius: 6px;
+}
+
+.progress-checklist {
+    margin-top: 1rem;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.checklist-item.completed {
+    color: var(--success-color);
+}
+
+.checklist-item .check-icon {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+}
+
 /* Hidden utility class */
 .hidden {
     display: none !important;
