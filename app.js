@@ -235,15 +235,24 @@ function switchLanguage(lang) {
         }
     });
     
-    // Update form labels
+    // Update form labels (preserving help icons)
     const labels = document.querySelectorAll('label[for]');
     labels.forEach(label => {
         const forAttr = label.getAttribute('for');
         const key = `label-${forAttr}`;
         if (t[key]) {
-            // Preserve the asterisk for required fields
-            const hasAsterisk = label.textContent.includes('*');
-            label.textContent = t[key] + (hasAsterisk ? ' *' : '');
+            // Find the span with the translatable text
+            const labelSpan = label.querySelector('span[id^="label-"]');
+            if (labelSpan) {
+                labelSpan.textContent = t[key];
+            } else {
+                // Fallback for labels without spans (financial form)
+                const hasAsterisk = label.textContent.includes('*');
+                const hasTooltip = label.querySelector('.tooltip-icon');
+                if (!hasTooltip && !label.querySelector('.help-icon')) {
+                    label.textContent = t[key] + (hasAsterisk ? ' *' : '');
+                }
+            }
         }
     });
     
