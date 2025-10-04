@@ -34,23 +34,51 @@
                 
                 <form id="strategicForm">
                     <div class="form-group">
-                        <label for="stratProjectName">Project Name *</label>
-                        <input type="text" id="stratProjectName" placeholder="e.g., Digital Transformation Initiative" required>
+                        <label for="stratProjectName">
+                            <span id="label-stratProjectName">Project Name</span> *
+                            <span class="help-icon" onclick="showGuideModal('projectName')" title="Click for detailed guidance">💡</span>
+                        </label>
+                        <input type="text" id="stratProjectName" placeholder="e.g., AI-Powered Customer Support Automation" required>
+                        <div class="field-quality" id="quality-stratProjectName"></div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="problemOpportunity">Problem/Opportunity Identified *</label>
-                        <textarea id="problemOpportunity" rows="4" placeholder="Describe the problem or opportunity this project addresses..." required></textarea>
+                        <label for="problemOpportunity">
+                            <span id="label-problemOpportunity">Problem/Opportunity Identified</span> *
+                            <span class="help-icon" onclick="showGuideModal('problemOpportunity')" title="Click for detailed guidance">💡</span>
+                        </label>
+                        <textarea id="problemOpportunity" rows="4" placeholder="e.g., Our support team spends 10 hours/week manually classifying tickets, causing 4-hour delays and 15% customer dissatisfaction..." required></textarea>
+                        <div class="field-quality" id="quality-problemOpportunity"></div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="proposedSolution">Proposed Solution (with or without AI) *</label>
-                        <textarea id="proposedSolution" rows="4" placeholder="Describe the proposed solution and its key features..." required></textarea>
+                        <label for="proposedSolution">
+                            <span id="label-proposedSolution">Proposed Solution (with or without AI)</span> *
+                            <span class="help-icon" onclick="showGuideModal('proposedSolution')" title="Click for detailed guidance">💡</span>
+                        </label>
+                        <textarea id="proposedSolution" rows="4" placeholder="e.g., Implement an AI triage agent for instant ticket classification. Phase 1: Auto-categorization and priority assessment. Out of scope: Automated responses..." required></textarea>
+                        <div class="field-quality" id="quality-proposedSolution"></div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="successMetrics">Success Metrics / ROI *</label>
-                        <textarea id="successMetrics" rows="3" placeholder="Define how success will be measured (KPIs, ROI targets, etc.)..." required></textarea>
+                        <label for="successMetrics">
+                            <span id="label-successMetrics">Success Metrics / ROI</span> *
+                            <span class="help-icon" onclick="showGuideModal('successMetrics')" title="Click for detailed guidance">💡</span>
+                        </label>
+                        <textarea id="successMetrics" rows="3" placeholder="e.g., Reduce classification time by 90% in Q1 (10h to 1h/week), decrease first response time by 50%, improve satisfaction by 5 points..." required></textarea>
+                        <div class="field-quality" id="quality-successMetrics"></div>
+                    </div>
+                    
+                    <!-- Overall Progress Indicator -->
+                    <div class="progress-indicator">
+                        <div class="progress-header">
+                            <span id="progress-title">Business Case Quality Score</span>
+                            <span class="progress-score" id="overall-score">0/100</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
+                        </div>
+                        <div class="progress-checklist" id="progress-checklist"></div>
                     </div>
                     
                     <div class="button-group">
@@ -291,6 +319,15 @@
     <!-- Loading Overlay -->
     <div id="loadingOverlay" class="loading-overlay hidden">
         <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Guide Modal -->
+    <div id="guideModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeGuideModal()">&times;</span>
+            <h3 class="modal-title" id="modal-title"></h3>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
     </div>
 
     <script src="app.js"></script>
